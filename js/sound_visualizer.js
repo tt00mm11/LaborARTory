@@ -44,6 +44,17 @@ let uploadSound = document.getElementById('import_input_i');
 
 let count = 9;
 
+//モーデル sato 211111
+
+$(window).on('load',function(){
+    $('.js_modal').fadeIn();
+    return false;
+});
+$('.js_modal_close').on('click',function(){
+    $('.js_modal').fadeOut();
+    return false;
+});
+
 uploadSound.addEventListener('change', changeSound, false);
 
 function changeSound() {

@@ -2,6 +2,40 @@
             margin: 0;
             padding: 0;
         }
+/* モーデル */
+        
+        .modal{
+            display: none;
+            height: 100px;
+            position: fixed;
+        }
+
+        .modal_i{
+            height: 100px;
+            position: absolute;
+            width: 100%;
+        }
+
+        .model_content{
+            background: rgb(0, 0, 0);
+            left: 50%;
+            padding: 40px;
+            position: fixed;
+            top: 60%;
+            transform: translate(-50%,-50%);
+        }
+
+        p{
+            color: snow;
+            font-family: serif;
+        }
+
+        a{
+            color: snow;
+            font-family: serif;
+        }
+
+
 /* ヘッダー */
         header {
             background-color: #0E0C0C;
