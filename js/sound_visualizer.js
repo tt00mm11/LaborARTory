@@ -115,12 +115,9 @@ fft = new p5.FFT(0.9, 512);
 }
 
 // タップ（クリック）して、プレイモードを決める
-function touchStarted(event) {
-    console.log(event);
-    if (event.x >768 && event.x <= 905 && event.y >= 309 && event.y <= 451) {
-        theSound[0].play();
-        Hue2 = int(random(1, 360));
-    }
+function touchStarted() {
+    theSound[0].play();
+    Hue2 = int(random(1, 360));
 }
 
 $('#recording_button_i').on('click', function () {
