@@ -124,6 +124,7 @@ $('#recording_button_i').on('click', function () {
     console.log('Start Rec!');
     if (state === 0 && mic.enabled) {
         // record to our p5.SoundFile
+        count = 0;
         $('#recording_button_i').text('録音中...');
         recorder.record();
         state++;
