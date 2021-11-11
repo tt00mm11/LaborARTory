@@ -34,6 +34,8 @@ let spectrum, waveform, volume, time;
 let mic, recorder, soundFile, rec;
 let state = 0;
 
+let parent = document.getElementById('content');
+
 // データをロード
 function loadAsset() {
 // テキストフォントを設定
@@ -61,8 +63,10 @@ function setup() {
 
 
 // 画面サイズの縦横を比較し、小さい値をキャンバスサイズに設定
-winSize = min(windowWidth, windowHeight);
-cnv = createCanvas(winSize, winSize);
+winSize = min(500, 500);
+let canvas = createCanvas(winSize, winSize);
+
+    canvas.parent(parent);
 
 // 解像度
 pixelDensity(2);
@@ -97,10 +101,10 @@ fft = new p5.FFT(0.9, 512);
 // タップ（クリック）して、プレイモードを決める
 function touchStarted(event) {
     console.log(event);
-    if (event.x >= 350 && event.x <= 700 && event.y >= 500 && event.y <= 850) {
+    if (event.x >768 && event.x <= 905 && event.y >= 309 && event.y <= 451) {
         theSound[0].play();
         Hue2 = int(random(1, 360));
-    } else if (event.x >= 40 && event.x <= 310 && event.y >= 180 && event.y <= 450) {
+    } else if (event.x >= 600 && event.x <= 700 && event.y >= 130 && event.y <= 230) {
             console.log('Start Rec!');
 
             if (state === 0 && mic.enabled) {
@@ -118,6 +122,8 @@ function touchStarted(event) {
                 soundFile.play(); // play the result!
                 save(soundFile, 'mySound.wav');
                 state++;
+            } else {
+                soundFile.play();
             }
 
         // make sure user enabled the mic
@@ -159,51 +165,45 @@ function draw() {
     ellipse(mouseX, mouseY, 25, 25);
 }
 
-function windowResized() {
-// 縦と横を比較して、画面サイズの小さい方をキャンバスのサイズする
-winSize = min(windowWidth, windowHeight);
-resizeCanvas(winSize, winSize);
-}
-
 function soundRecorder() {
     if (state === 0) {
         fill('orange');
         noStroke();
-        circle(100, 100, 150)
+        circle(50, 50, 100);
 
         fill('white');
-        textSize(20);
+        textSize(16);
         textAlign(CENTER, CENTER);
 
-        text('Rec Sound', 100, 100);
+        text('Rec', 50, 50);
     }
     else if (state === 0 && mic.enabled) {
         fill('pink');
         noStroke();
-        circle(100, 100, 150)
+        circle(50, 50, 100);
         fill('white');
-        text('Ready?', 100, 100);
+        text('Ready?', 50, 50);
     }
     else if (state === 1) {
         fill('red');
         noStroke();
-        circle(100, 100, 150)
+        circle(50, 50, 100);
         fill('white');
-        text('Recording!', 100, 100);
+        text('Recording!', 50, 50);
     }
     else if (state === 2) {
         fill('crimson');
         noStroke();
-        circle(100, 100, 150);
+        circle(50, 50, 100);
         fill('white');
-        text('Done!', 100, 100);
+        text('Done!', 50, 50);
     }
     else if (state === 3) {
         fill('aqua');
         noStroke();
-        circle(100, 100, 150);
+        circle(50, 50, 100);
         fill('white');
-        text('Playing!', 100, 100);
+        text('Playing!', 50, 50);
     }
 }
 
@@ -218,7 +218,7 @@ stroke(Hue2, 50, 50, 50);
 // 配列の長さ分、繰り返す
 for (i = 0; i < waveform.length; i++){
     // 線の長さと座標
-    let size =waveform[i] * spectrum.length * 0.5;
+    let size =waveform[i] * spectrum.length * 0.3;
     let x = sin(360 * i / waveform.length) * winSize * 0.3;
     let y = cos(360 * i / waveform.length) * winSize * 0.3;
 

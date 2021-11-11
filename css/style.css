@@ -23,6 +23,14 @@
 
         .content_visualize {
             height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #content {
+            width: 500px;
+            height: 500px;
         }
 /* フッター  */
         footer {
