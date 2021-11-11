@@ -115,10 +115,10 @@ fft = new p5.FFT(0.9, 512);
 }
 
 // タップ（クリック）して、プレイモードを決める
-function touchStarted() {
+$('#play_import_sound').on('click', function () {
     theSound[0].play();
     Hue2 = int(random(1, 360));
-}
+});
 
 $('#recording_button_i').on('click', function () {
     console.log('Start Rec!');
@@ -126,7 +126,7 @@ $('#recording_button_i').on('click', function () {
         // record to our p5.SoundFile
         count = 0;
         $('#recording_button_i').text('録音中...');
-        recorder.record();
+        recorder.record(soundFile);
         state++;
     }
     else if (state === 1) {
@@ -137,6 +137,7 @@ $('#recording_button_i').on('click', function () {
         state++;
     }
     else if (state === 2) {
+        Hue2 = int(random(1, 360));
         soundFile.play(); // play the result!
         save(soundFile, 'mySound.wav');
         state++;
@@ -176,6 +177,7 @@ $('#mixing_button_i').on('click', function () {
         state++;
     }
     else if (state === 2) {
+        Hue2 = int(random(1, 360));
         for (let i = 0; i < mixingNumber + 1; i++) {
             mixingFile[i].play();
              // play the result!
