@@ -31,10 +31,27 @@ let tapCounter = 0;
 // soundVisualizerで使うデータの変数
 let spectrum, waveform, volume, time;
 
-let mic, recorder, soundFile, rec;
+let mic, recorder, soundFile, metronome, rec;
+const mixingFile = [];
 let state = 0;
 
+let mixingNumber = 0;
+
+let currentTempo = 128;
+
 let parent = document.getElementById('content');
+let uploadSound = document.getElementById('import_input_i');
+
+let count = 9;
+
+uploadSound.addEventListener('change', changeSound, false);
+
+function changeSound() {
+    theSound[0] = loadSound(this.files[0]);
+    // サウンドの初期化
+    theSound[0].stop();
+    theSound[0].setVolume(0.5);
+}
 
 // データをロード
 function loadAsset() {
@@ -42,11 +59,12 @@ function loadAsset() {
 textFont('Megrim');
 
 // サウンドデータをロードする
-    theSound[0] = loadSound('../audio/claploop4.mp3');
+    // theSound[0] = loadSound('../audio/claploop4.mp3');
 }
 
 // 初期化
 function setup() {
+    theSound[1] = loadSound('../audio/low.mp3');
     // p5.AudioInオブジェクトを作成
     mic = new p5.AudioIn();
     // p5.SoundRecorderオブジェクトを作成
@@ -59,6 +77,7 @@ function setup() {
     recorder.setInput(mic);
     // 空のp5.SoundFileオブジェクトを作成。録音した音の再生に使用する
     soundFile = new p5.SoundFile();
+    mixingFile[0] = new p5.SoundFile();
     Hue1 = int(random(1, 360));
 
 
@@ -87,9 +106,6 @@ rectMode(CENTER);
 color1 = color(252, 84, 34);
 color2 = color(72, 100, 100,);
 
-// サウンドの初期化
-theSound[0].stop();
-
 // 周波数を解析
 fft = new p5.FFT(0.9, 512);
 
@@ -104,31 +120,75 @@ function touchStarted(event) {
     if (event.x >768 && event.x <= 905 && event.y >= 309 && event.y <= 451) {
         theSound[0].play();
         Hue2 = int(random(1, 360));
-    } else if (event.x >= 600 && event.x <= 700 && event.y >= 130 && event.y <= 230) {
-            console.log('Start Rec!');
-
-            if (state === 0 && mic.enabled) {
-                // record to our p5.SoundFile
-                recorder.record(soundFile);
-                state++;
-            }
-            else if (state === 1) {
-                // stop recorder and
-                // send result to soundFile
-                recorder.stop();
-                state++;
-            }
-            else if (state === 2) {
-                soundFile.play(); // play the result!
-                save(soundFile, 'mySound.wav');
-                state++;
-            } else {
-                soundFile.play();
-            }
-
-        // make sure user enabled the mic
     }
 }
+
+$('#recording_button_i').on('click', function () {
+    console.log('Start Rec!');
+    if (state === 0 && mic.enabled) {
+        // record to our p5.SoundFile
+        $('#recording_button_i').text('録音中...');
+        recorder.record();
+        state++;
+    }
+    else if (state === 1) {
+        // stop recorder and
+        // send result to soundFile
+        recorder.stop();
+        $('#recording_button_i').text('再生');
+        state++;
+    }
+    else if (state === 2) {
+        soundFile.play(); // play the result!
+        save(soundFile, 'mySound.wav');
+        state++;
+    } else {
+        soundFile.play();
+    }
+});
+
+$('#mixing_button_i').on('click', function () {
+    console.log('Start mixing!');
+    if (mixingFile[mixingNumber] === undefined) {
+        mixingFile[mixingNumber] = new p5.SoundFile();
+    }
+    if (state === 0 && mic.enabled) {
+        metronome = setInterval(function () {
+            theSound[1].play();
+            count--;
+            setTimeout(function () {
+                theSound[1].stop();
+                theSound[1].currentTime(0);
+            }, 100)
+        }, 60 / currentTempo * 1000);
+        // record to our p5.SoundFile
+
+        setTimeout(function () {
+            recorder.record(mixingFile[mixingNumber]);
+        }, 8 * 60 / currentTempo * 1000);
+        $('#mixing_button_i').text('録音中...');
+        state++;
+    }
+    else if (state === 1) {
+        clearInterval(metronome);
+        // stop recorder and
+        // send result to soundFile
+        recorder.stop();
+        $('#mixing_button_i').text('再生');
+        state++;
+    }
+    else if (state === 2) {
+        for (let i = 0; i < mixingNumber + 1; i++) {
+            mixingFile[i].play();
+             // play the result!
+        }
+        $('#mixing_button_i').text('mixing');
+        // save(mixingFile, 'mySound.wav');
+        state = 0;
+        mixingNumber++;
+    }
+})
+
 
 // 計算と描画
 function draw() {
@@ -177,19 +237,16 @@ function soundRecorder() {
 
         text('Rec', 50, 50);
     }
-    else if (state === 0 && mic.enabled) {
-        fill('pink');
-        noStroke();
-        circle(50, 50, 100);
-        fill('white');
-        text('Ready?', 50, 50);
-    }
     else if (state === 1) {
         fill('red');
         noStroke();
         circle(50, 50, 100);
         fill('white');
-        text('Recording!', 50, 50);
+        if (count <= 0) {
+            text('Recording!', 50, 50);
+        } else {
+            text(count, 50, 50);
+        }
     }
     else if (state === 2) {
         fill('crimson');
@@ -218,7 +275,7 @@ stroke(Hue2, 50, 50, 50);
 // 配列の長さ分、繰り返す
 for (i = 0; i < waveform.length; i++){
     // 線の長さと座標
-    let size =waveform[i] * spectrum.length * 0.3;
+    let size =waveform[i] * spectrum.length * 0.5;
     let x = sin(360 * i / waveform.length) * winSize * 0.3;
     let y = cos(360 * i / waveform.length) * winSize * 0.3;
 
