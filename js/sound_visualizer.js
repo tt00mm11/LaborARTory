@@ -45,24 +45,19 @@ textFont('Megrim');
 
 // 初期化
 function setup() {
-
+    // p5.AudioInオブジェクトを作成
+    mic = new p5.AudioIn();
+    // p5.SoundRecorderオブジェクトを作成
+    recorder = new p5.SoundRecorder();
+    // ensure audio is enabled
+    userStartAudio();
+    // オーディオ入力処理を開始
+    mic.start();
+    // マイクをレコーダーに接続
+    recorder.setInput(mic);
+    // 空のp5.SoundFileオブジェクトを作成。録音した音の再生に使用する
+    soundFile = new p5.SoundFile();
     Hue1 = int(random(1, 360));
-
-// create an audio in
-mic = new p5.AudioIn();
-
-// prompts user to enable their browser mic
-mic.start();
-
-// create a sound recorder
-recorder = new p5.SoundRecorder();
-
-// connect the mic to the recorder
-recorder.setInput(mic);
-
-// this sound file will be used to
-// playback & save the recording
-soundFile = new p5.SoundFile();
 
 
 // 画面サイズの縦横を比較し、小さい値をキャンバスサイズに設定
@@ -97,6 +92,36 @@ fft = new p5.FFT(0.9, 512);
 // 音量を測定
     amplitude = new p5.Amplitude();
 
+}
+
+// タップ（クリック）して、プレイモードを決める
+function touchStarted(event) {
+    console.log(event);
+    if (event.x >= 350 && event.x <= 700 && event.y >= 500 && event.y <= 850) {
+        theSound[0].play();
+        Hue2 = int(random(1, 360));
+    } else if (event.x >= 40 && event.x <= 310 && event.y >= 180 && event.y <= 450) {
+            console.log('Start Rec!');
+
+            if (state === 0 && mic.enabled) {
+                // record to our p5.SoundFile
+                recorder.record(soundFile);
+                state++;
+            }
+            else if (state === 1) {
+                // stop recorder and
+                // send result to soundFile
+                recorder.stop();
+                state++;
+            }
+            else if (state === 2) {
+                soundFile.play(); // play the result!
+                save(soundFile, 'mySound.wav');
+                state++;
+            }
+
+        // make sure user enabled the mic
+    }
 }
 
 // 計算と描画
@@ -141,17 +166,45 @@ resizeCanvas(winSize, winSize);
 }
 
 function soundRecorder() {
+    if (state === 0) {
+        fill('orange');
+        noStroke();
+        circle(100, 100, 150)
 
+        fill('white');
+        textSize(20);
+        textAlign(CENTER, CENTER);
 
-    fill('red');
-    noStroke();
-    circle(100, 100, 150)
-
-    fill('white');
-    textSize(20);
-    textAlign(CENTER, CENTER);
-
-    text('Rec Sound', 100, 100);
+        text('Rec Sound', 100, 100);
+    }
+    else if (state === 0 && mic.enabled) {
+        fill('pink');
+        noStroke();
+        circle(100, 100, 150)
+        fill('white');
+        text('Ready?', 100, 100);
+    }
+    else if (state === 1) {
+        fill('red');
+        noStroke();
+        circle(100, 100, 150)
+        fill('white');
+        text('Recording!', 100, 100);
+    }
+    else if (state === 2) {
+        fill('crimson');
+        noStroke();
+        circle(100, 100, 150);
+        fill('white');
+        text('Done!', 100, 100);
+    }
+    else if (state === 3) {
+        fill('aqua');
+        noStroke();
+        circle(100, 100, 150);
+        fill('white');
+        text('Playing!', 100, 100);
+    }
 }
 
 function soundVisualizer5(){
@@ -174,51 +227,3 @@ for (i = 0; i < waveform.length; i++){
 }
 }
 
-// タップ（クリック）して、プレイモードを決める
-function touchStarted(event) {
-    console.log(event);
-    if (event.x >= 350 && event.x <= 700 && event.y >= 500 && event.y <= 850) {
-        theSound[0].play();
-        Hue2 = int(random(1, 360));
-    } else if (event.x >= 40 && event.x <= 190 && event.y >= 180 && event.y <= 330) {
-            console.log('Start Rec!');
-        // ensure audio is enabled
-        userStartAudio();
-
-        // make sure user enabled the mic
-        if (state === 0 && mic.enabled) {
-
-            // record to our p5.SoundFile
-            recorder.record(soundFile);
-
-            background('pink');
-            text('Recording!', width/2, height/2);
-            state++;
-        }
-        else if (state === 1) {
-            background('crimson');
-
-            // stop recorder and
-            // send result to soundFile
-            recorder.stop();
-
-            text('Done! Tap to play and download', width/2, height/2, width - 20);
-            state++;
-        }
-
-        else if (state === 2) {
-            soundFile.play(); // play the result!
-            save(soundFile, 'mySound.wav');
-            state++;
-        }
-    }
-}
-
-
-
-function mouseClicked() {
-
-}
-
-
-rec.mouseClicked();

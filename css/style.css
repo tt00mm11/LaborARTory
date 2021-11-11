@@ -1,0 +1,41 @@
+        * {
+            margin: 0;
+            padding: 0;
+        }
+/* ヘッダー */
+        header {
+            background-color: #0E0C0C;
+        }
+
+        .logo_img {
+            height: 80px;
+            margin: 0 15px;
+            padding: 25px;
+        }
+
+        .logo_img img {
+            height: 150px;
+        }
+/* body */
+        body {
+            background-color: rgb(48, 2, 56);
+        }
+
+        .content_visualize {
+            height: 500px;
+        }
+/* フッター  */
+        footer {
+            width: 100%;
+            position: fixed;
+            height: 100px;
+            background-color: black;
+            color: cornsilk;
+        }
+
+        .footer_container {
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
