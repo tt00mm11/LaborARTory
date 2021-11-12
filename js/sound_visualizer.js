@@ -60,6 +60,11 @@ $('.modal_close').on('click',function(){
     $('.js_modal').fadeOut();
     return false;
 });
+<<<<<<< HEAD
+=======
+
+uploadSound.addEventListener('change', changeSound, false);
+>>>>>>> f17efe6a865600431e98e9ed6c54ae4088680b65
 
 function changeSound(p) {
     theSound[0] = p.loadSound($('#import_input_i').prop('files')[0]);
