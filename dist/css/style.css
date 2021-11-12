@@ -2,11 +2,7 @@
             margin: 0;
             padding: 0;
         }
-<<<<<<< HEAD:dist/css/style.css
         /* モーデル */
-=======
-/* モーデル */
->>>>>>> f17efe6a865600431e98e9ed6c54ae4088680b65:css/style.css
 
         .modal_content{
             color: rgb(0, 0, 0);
@@ -34,11 +30,6 @@
             font-family: serif;
             z-index: 98;
         }
-<<<<<<< HEAD:dist/css/style.css
-=======
-
-
->>>>>>> f17efe6a865600431e98e9ed6c54ae4088680b65:css/style.css
 /* ヘッダー */
         header {
             background-color: #0E0C0C;
