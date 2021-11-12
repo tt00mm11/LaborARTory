@@ -56,7 +56,7 @@ $(window).on('load',function(){
     $('.js_modal').fadeIn();
     return false;
 });
-$('.modal_close').on('click',function(){
+$('#').on('click',function(){
     $('.js_modal').fadeOut();
     return false;
 });
