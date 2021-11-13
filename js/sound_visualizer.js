@@ -23,13 +23,13 @@ let Hue2 = 0;
 let theSound = [];
 
 // ビジュアライザーの数（追加した場合、数を増やす）
-let playModeNum = 25;
+let playModeNum = 3;
 
 // サウンドモードの変数
 let soundMode = 0;
 
 // プレイモードの変数
-let playMode = 0;
+let playMode = 1;
 
 // タップの数を数える変数
 let tapCounter = 0;
@@ -53,10 +53,10 @@ let count = 9;
 //モーデル sato 211111
 
 $(window).on('load',function(){
-    $('.js_modal').fadeIn();
+    $('.js_modal').fadeIn(3000);
     return false;
 });
-$('#').on('click',function(){
+$('#start').on('click',function(){
     $('.js_modal').fadeOut();
     return false;
 });
@@ -217,7 +217,11 @@ const sketch = (p) => {
         // 座標の基準を移動
         p.translate(p.width / 2, p.height / 2);
 
-        soundVisualizer5(p);
+
+        // プレイモードを設定して、soundVisualizerを呼び出す// ・・・・・・・・・・・・・・・・・・・・・・・・藤﨑F
+        playModeSetting(p);
+
+        //soundVisualizer5(p);
 
         // pushで保存した座標を復元する
         p.pop();
@@ -228,7 +232,131 @@ const sketch = (p) => {
         p.fill(0, 0, 100, 80)
         p.ellipse(p.mouseX, p.mouseY, 25, 25);
     };
+    p.keyPressed = () => {
+        // プレイモードが1以上のとき
+        if (playMode >= 1) {
+
+            // 右矢印キーを押して、ビジュアライザーのみ切り替える（進む）
+            if (p.keyCode == p.RIGHT_ARROW) {
+                // タップの数を数える
+                // playMode++;
+
+                // playModeがビジュアライザーの数より小さい場合は1つ進む
+                if (playMode < playModeNum) {
+                    playMode++;
+
+                    // プレイモードが最後尾の場合は先頭へ
+                } else if (playMode == playModeNum) {
+                    playMode = 1;
+                }
+            }
+
+            // 左矢印キーを押して、ビジュアライザーのみ切り替える（戻る）
+            if (p.keyCode == p.LEFT_ARROW) {
+                // タップの数を数える
+                tapCounter++;
+
+                // playModeが1より大きい場合は1つ戻る
+                if (playMode > 1) {
+                    playMode--;
+
+                    //playModeが1の場合は、最後尾へ
+                } else if (playMode == 1) {
+                    playMode = playModeNum;
+                }
+            }
+
+            // // 下矢印キーを押して、色彩のみ切り替える
+            // if (keyCode == DOWN_ARROW) {
+            //     // タップの数を数える
+            //     tapCounter++;
+
+            //     // 色彩をランダムに決める
+            //     Hue = int(random(1, 360));
+        }
+    }
 };
+
+////////////////////////////////////////////////////////////////////////////藤﨑
+// 矢印キーで、サウンド、色彩、ビジュアライザーをそれぞれ切り替える
+
+function playModeSetting(p) {
+    // if (playMode == 1) {
+    //     soundVisualizer1(p);
+    // }
+    // else if (playMode == 2) {
+    //     soundVisualizer2(p);
+    // }
+    // else if (playMode == 3) {
+    //     soundVisualizer3(p);
+    // }
+    // else if (playMode == 4) {
+    //     soundVisualizer4(p);
+    // }
+    if (playMode == 1) {
+        soundVisualizer5(p);
+    }
+    // else if (playMode == 6) {
+    //     soundVisualizer6(p);
+    // }
+    // else if (playMode == 2) {
+    //     soundVisualizer7(p);
+    // }
+    // else if (playMode == 3) {
+    //     soundVisualizer8(p);
+    // }
+    // else if (playMode == 9) {
+    //     soundVisualizer9(p);
+    // }
+    // else if (playMode == 3) {
+    //     soundVisualizer10(p);
+    // }
+    // else if (playMode == 11) {
+    //     soundVisualizer11(p);
+    // }
+    // else if (playMode == 12) {
+    //     soundVisualizer12(p);
+    // }
+    // else if (playMode == 13) {
+    //     soundVisualizer13(p);
+    // }
+    // else if (playMode == 14) {
+    //     soundVisualizer14(p);
+    // }
+    else if (playMode == 2) {
+        soundVisualizer15(p);
+    }
+    // else if (playMode == 16) {
+    //     soundVisualizer16(p);
+    // }
+    else if (playMode == 3) {
+        soundVisualizer17(p);
+    }
+    // else if (playMode == 18) {
+    //     soundVisualizer18(p);
+    // }
+    // else if (playMode == 19) {
+    //     soundVisualizer19(p);
+    // }
+    // else if (playMode == 20) {
+    //     soundVisualizer20(p);
+    // }
+    // else if (playMode == 21) {
+    //     soundVisualizer21(p);
+    // }
+    // else if (playMode == 22) {
+    //     soundVisualizer22(p);
+    // }
+    // else if (playMode == 23) {
+    //     soundVisualizer23(p);
+    // }
+    // else if (playMode == 24) {
+    //     soundVisualizer24(p);
+    // }
+    // else if (playMode == 25) {
+    //     soundVisualizer25(p);
+    // }
+}
 
 new p5(sketch);
 
@@ -290,6 +418,135 @@ for (let i = 0; i < waveform.length; i++){
     p.line(x, y, size, size);
 }
 }
+
+// // function soundVisualizer7(p) {
+// //     // ブレンドモードと背景
+// //     p.blendMode(p.BLEND);
+// //     p.background('black');
+
+// //     // 図形を配置する、全体の大きさ
+// //     let radius = winSize * 0.5;
+
+// //     // 図形の色を設定
+// //     p.strokeWeight(2);
+// //     p.stroke(Hue1, 50, 100, volume * 100 + 50);
+
+// //     // 配列の長さ分、繰り返す
+// //     for (let i = 0; i < waveform.length; i++) {
+// //         // 線の長さ
+// //         let length = waveform[i] * spectrum.length * 0.02;
+
+// //         // 配置する位置を調整
+// //         let position = p.map(i, 0, waveform.length, -radius / 2, radius / 2);
+
+// //         // 4辺の座標（ベクトルを使って、1つの変数で2つの情報(x,y) を持つ）
+// //         let top = p.createVector(position, - radius / 2);
+// //         let bottom = p.createVector(position, radius / 2);
+// //         let left = p.createVector(- radius / 2, position);
+// //         let right = p.createVector(radius / 2, position);
+
+// //         // 上下左右、4辺に線を描く
+// //         p.line(top.x, top.y, top.x, top.y + length);
+// //         p.line(bottom.x, bottom.y, bottom.x, bottom.y + length);
+// //         p.line(left.x, left.y, left.x + length, left.y);
+// //         p.line(right.x, right.y, right.x + length, right.y);
+// //     }
+// // }
+
+// function soundVisualizer10(p) {
+//     // ブレンドモードと背景
+//     p.blendMode(p.BLEND);
+//     p.background('black');
+//     p.blendMode(p.SCREEN);
+
+//     // 角度と大きさ
+//     let angle = 0;
+//     let radius = 0;
+
+//     // 配列の長さ分、繰り返す
+//     for (let i = 0; i < waveform.length; i++) {
+//         // キャンバスを回転
+//         p.rotate(time * 0.05);
+
+//         // 角度と大きさを増やす
+//         angle += 15;
+//         radius += 0.4;
+
+//         // 円の大きさと座標
+//         let size = waveform[i] * volume * 10 + 3;
+//         let x = p.sin(angle) * radius;
+//         let y = p.cos(angle) * radius;
+
+//         // 図形の色を設定
+//         p.noStroke();
+//         p.fill(Hue2, x, 100);
+
+//         // 円を描く
+//         p.ellipse(x, y, size);
+//     }
+// }
+
+
+function soundVisualizer15(p) {
+    // ブレンドモードと背景
+    p.blendMode(p.BLEND);
+    p.background('black');
+
+    // 頂点の記録開始
+    p.beginShape();
+
+    // 配列の長さ分、繰り返す
+    for (let i = 0; i < spectrum.length; i++) {
+        // 横幅と縦幅の長さ
+        let w_length = winSize * 0.8;
+        let h_length = p.map(spectrum[i], 0, 255, 0, -winSize * 0.3);
+
+        // X座標
+        let x = p.map(i, 0, spectrum.length, -w_length / 2, w_length / 2);
+
+        // 図形の色を設定
+        p.noFill();
+        p.strokeWeight(3);
+        (Hue1, 50, 100);
+
+        // 頂点を描く（曲線でつなぐ）
+        p.curveVertex(x, h_length);
+    }
+    // 頂点の記録終了
+    p.endShape();
+}
+
+
+function soundVisualizer17(p) {
+    // ブレンドモードと背景
+    p.blendMode(p.BLEND);
+    p.background('black');
+    p.blendMode(p.SCREEN);
+
+    // 図形を配置する、全体の大きさ
+    let radius = winSize * 0.3;
+
+    // 配列の長さ分、繰り返す
+    for (let i = 0; i < spectrum.length; i++) {
+        // キャンバスを回転
+        p.rotate(i);
+
+        // 図形の大きさと座標
+        let size = p.map(spectrum[i], 0, 255, 0, radius * 0.9);
+        let x = p.sin(i) * radius;
+        let y = p.cos(i) * radius;
+        let Saturation = p.map(size, 0, radius * 0.4, 0, 100);
+
+        // 図形の色を設定
+        p.noFill();
+        p.strokeWeight(2);
+        p.stroke(Hue1, Saturation, 100, 30);
+
+        // 円を描く
+        p.ellipse(x, y, size);
+    }
+}
+
 
 export {
     soundBlob,
