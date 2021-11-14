@@ -8,23 +8,28 @@
   <!-- 藤﨑 211111 -->
   <link rel="stylesheet" href="css/style.css">
 
-  <title>Document</title>
+  <title>Soundalize</title>
+  <link rel="icon" href="img/favicon.ico">
 </head>
 
 
-  <!-- js_modal表示 sa 211111   -->
-  <!-- <div class="js_modal">
+<!-- js_modal表示 sa 211111   -->
+<!-- <div class="js_modal">
     <div class="modal_content">
       <div>※注意</div>
       <p class="modal_p">音が出ますので気をつけてください！<br>Please be careful with the volume of the sound!<br></p>
       <div class="modal_close">
-        <p id="#start">start</p>
+        <a href="#start">start</a>
       </div>
     </div>
   </div> -->
-  <!-- ここまで -->
-  <body>
-    <!-- 藤﨑 211111 -->
+<!-- ここまで -->
+<header>
+  <div class="logo_img" id="logo_img_i"><img src="img/Soundalize_1.png" alt=""></div>
+</header>
+
+<body>
+  <!-- 藤﨑 211111 -->
   <main>
     <div class="main_1" id="main_1_i">
       <div class="content_visualize" id="content_visualize_i">
@@ -33,26 +38,44 @@
     </div>
     <footer>
       <div class="footer_container" id="footer_container_i">
-        <div class="import" id="import_i"><label for="file_upload">
-            ファイルを選択して下さい<input type="file" id="import_input_i"></label><button id="play_import_sound"><span>アップした音を再生</span></button>
+        <div class="import" id="import_i">
+<div class="file_button">
+  ファイルを選択して下さい
+<input type="file" class="import_input" id="import_input_i">
+</div>
+            
+
+          <button
+            id="play_import_sound"><span>アップした音を再生</span></button>
         </div>
         <div class="recording" id="recording_i"><button id="recording_button_i"><span>録音</span></button></div>
         <div class="mixing" id="mixing_i"><button id="mixing_button_i"><span>mixing</span></button></div>
-        <div><button id="play"><span>ログに残した音を再生</span></button></div>
       </div>
     </footer>
     <!-- SNS箇所 -->
     <div class="main_2_sns" id="main_2_sns_i">
-      <ul id="history"></ul>
-      <div class="footer_2" id="footer_2_i"><input id="sound_name" type="text"><button id="save"><span>保存</span></button></footer>
+      <div class="close_open_wrap" id="close_open_wrap_i">
+      <div class="close_open" id="close_open_i">
+        <p>Log</p>
+        <img src="img/arrow.png" alt="">
       </div>
+      </div>
+
+      <div class="sns_content" id="sns_content_i">
+        <ul id="history"></ul>
+        <div class="footer_2" id="footer_2_i"><input id="sound_name" type="text"><button
+            id="save"><span>保存</span></button>
+          </footer>
+          <div><button id="play"><span>ログに残した音を再生</span></button></div>
+        </div>
+      </div>
+    </div>
   </main>
-      <header>
-        <div class="logo_img" id="logo_img_i"><img src="img/Soundalize_1.png" alt=""></div>
-      </header>
+
 
   <script src="main.js"></script>
-  <script src="js/style.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </body>
 
 </html>

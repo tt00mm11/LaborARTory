@@ -107,6 +107,7 @@
             top: 0;
             left: 0;
             width: 100%;
+            z-index: 30;
         }
 
         .logo_img {
@@ -176,6 +177,30 @@
             height: 100%;
             background-color: rgb(78 78 78);
             height: 100vh;
+            display: flex;
+        }
+
+        .close_open_wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border: white 1px solid;
+        }
+
+        .close_open {
+            width: 100px;
+            height: 100％;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            transform-origin: center;
+            transform: rotate( -90deg);
+        }
+
+        .close_open p {
+            font-family: serif;
+            color: white;
+            margin-right: 10px;
         }
 
         ul {
@@ -191,6 +216,14 @@
             font-size: x-large;
             height: 50px;
             font-size: medium;
+        }
+
+        #history li {
+            background-color: rgb(71, 1, 66);
+            margin-bottom: 10px;
+            border-radius: 100vh;
+            margin-top: 10px;
+            text-align: center;
         }
 
         /* button {
@@ -299,4 +332,33 @@
 
         button:hover:after {
             opacity: 0;
+        }
+
+        .file_button {
+            display: inline-block;
+            position: relative;
+            padding: 1em 2.2em;
+            text-align: center;
+            color: #fff;
+            border-radius: 4px;
+            background-color: #2772DB;
+            overflow: hidden;
+            -webkit-transition: .3s ease;
+            -moz-transition: .3s ease;
+            -o-transition: .3s ease;
+            transition: .3s ease;
+        }
+
+        .file_button:hover {
+            background-color: #2062bf;
+        }
+
+        .import_input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
         }
