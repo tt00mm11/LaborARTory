@@ -20,22 +20,26 @@ import {
     storage,
     ref,
     uploadBytes,
+    getDownloadURL,
 } from './import.js'
 
 import {
     soundBlob,
 } from './sound_visualizer.js'
 
+let soundUrl;
+
 $('#save').on('click', function () {
     const soundName = $('#sound_name').val();
-    // const folder = collection(db, 'sounds');
-    // console.log(folder.data());
-    const storageRef = ref(storage, soundName);
+    const folder = collection(db, 'sounds');
+    const fileName = doc(folder).id;
+    const storageRef = ref(storage, fileName);
     const data = {
+        fileName: fileName,
         soundName: soundName,
         time: serverTimestamp(),
-        };
-    addDoc(collection(db, 'sounds'), data);
+    };
+    setDoc(doc(db, 'sounds', fileName), data);
     uploadBytes(storageRef, soundBlob).then((snapshot) => {
         alert('アップロード完了！');
     });
@@ -57,10 +61,22 @@ onSnapshot(q, (querySnapshot) => {
     dataArray.forEach(function (data) {
     tagArray.push(`
         <li id="${data.id}">
-        <p>Unknown Name at ${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
+        <p>Unknown recorded ${data.data.soundName} at ${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
         </li>
     `);
     });
 
     $('ul').html(tagArray);
 });
+
+$('body').on('click', 'li', async function () {
+    console.log(this.id);
+    soundUrl = await getDownloadURL(ref(storage, this.id)).then((url) => {
+        console.log(url);
+        return url;
+    });
+});
+
+export {
+    soundUrl,
+}

@@ -37,6 +37,7 @@ import {
     getStorage,
     ref,
     uploadBytes,
+    getDownloadURL,
 } from "firebase/storage";
 
 // Your web app's Firebase configuration
@@ -74,4 +75,5 @@ export {
     storage,
     ref,
     uploadBytes,
+    getDownloadURL,
 }

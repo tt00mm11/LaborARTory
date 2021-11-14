@@ -2,6 +2,10 @@ import $ from "jquery";
 import p5 from "p5";
 import 'p5/lib/addons/p5.sound';
 
+import {
+    soundUrl,
+} from './index.js';
+
 // ローディングの変数
 let isLoading = true;
 let assetNumber = 2;
@@ -37,7 +41,7 @@ let tapCounter = 0;
 // soundVisualizerで使うデータの変数
 let spectrum, waveform, volume, time;
 
-let mic, recorder, soundFile, soundBlob, metronome, rec;
+let mic, recorder, soundFile, soundBlob, metronome, rec, loadSound;
 const mixingFile = [];
 let state = 0;
 
@@ -147,6 +151,14 @@ const sketch = (p) => {
             mixingNumber++;
         }
     })
+
+    $('#play').on('click', function () {
+        // $('#loadSound').append(`<source src="${soundUrl}" type="audio/wav">`);
+        loadSound = p.loadSound(soundUrl);
+        setTimeout(function () {
+            loadSound.play();
+        }, 2000);
+    });
 
     p.setup = () => {
         theSound[1] = p.loadSound('audio/low.mp3');
