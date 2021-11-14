@@ -4,6 +4,8 @@ import 'p5/lib/addons/p5.sound';
 
 import {
     soundUrl,
+    number,
+    color,
 } from './index.js';
 
 // ローディングの変数
@@ -20,14 +22,14 @@ let color1, color2;
 let fft, amplitude;
 
 // 図形の色彩を決める変数
-let Hue1 = 0;
-let Hue2 = 0;
+let hue1 = 0;
+let hue2 = 0;
 
 // サウンドデータを入れる変数
 let theSound = [];
 
 // ビジュアライザーの数（追加した場合、数を増やす）
-let playModeNum = 3;
+let playModeNum = 7;
 
 // サウンドモードの変数
 let soundMode = 0;
@@ -81,7 +83,7 @@ const sketch = (p) => {
 
     $('#play_import_sound').on('click', function () {
         theSound[0].play();
-        Hue2 = p.int(p.random(1, 360));
+        hue2 = p.int(p.random(1, 360));
     });
 
     $('#recording_button_i').on('click', function () {
@@ -97,13 +99,13 @@ const sketch = (p) => {
             // stop recorder and
             // send result to soundFile
             recorder.stop();
+            soundBlob = soundFile.getBlob();
             $('#recording_button_i').text('再生');
             state++;
         }
         else if (state === 2) {
-            Hue2 = p.int(p.random(1, 360));
+            hue2 = p.int(p.random(1, 360));
             soundFile.play(); // play the result!
-            soundBlob = soundFile.getBlob();
             $('#recording_button_i').text('録音');
             state = 0;
         }
@@ -140,7 +142,7 @@ const sketch = (p) => {
             state++;
         }
         else if (state === 2) {
-            Hue2 = int(random(1, 360));
+            hue2 = p.int(p.random(1, 360));
             for (let i = 0; i < mixingNumber + 1; i++) {
                 mixingFile[i].play();
                 // play the result!
@@ -154,6 +156,8 @@ const sketch = (p) => {
 
     $('#play').on('click', function () {
         // $('#loadSound').append(`<source src="${soundUrl}" type="audio/wav">`);
+        // hue1 = color;
+        // playMode = number;
         loadSound = p.loadSound(soundUrl);
         setTimeout(function () {
             loadSound.play();
@@ -175,7 +179,7 @@ const sketch = (p) => {
         // 空のp5.SoundFileオブジェクトを作成。録音した音の再生に使用する
         soundFile = new p5.SoundFile();
         mixingFile[0] = new p5.SoundFile();
-        Hue1 = p.int(p.random(1, 360));
+        hue1 = p.int(p.random(1, 360));
 
 
         // 画面サイズの縦横を比較し、小さい値をキャンバスサイズに設定
@@ -265,8 +269,6 @@ const sketch = (p) => {
 
             // 左矢印キーを押して、ビジュアライザーのみ切り替える（戻る）
             if (p.keyCode == p.LEFT_ARROW) {
-                // タップの数を数える
-                tapCounter++;
 
                 // playModeが1より大きい場合は1つ戻る
                 if (playMode > 1) {
@@ -278,96 +280,40 @@ const sketch = (p) => {
                 }
             }
 
-            // // 下矢印キーを押して、色彩のみ切り替える
-            // if (keyCode == DOWN_ARROW) {
-            //     // タップの数を数える
-            //     tapCounter++;
-
-            //     // 色彩をランダムに決める
-            //     Hue = int(random(1, 360));
+            // 下矢印キーを押して、色彩のみ切り替える
+            if (p.keyCode == p.DOWN_ARROW) {
+                // 色彩をランダムに決める
+                hue1 = p.int(p.random(1, 360));
+            }
         }
     }
-};
+}
 
 ////////////////////////////////////////////////////////////////////////////藤﨑
 // 矢印キーで、サウンド、色彩、ビジュアライザーをそれぞれ切り替える
 
 function playModeSetting(p) {
-    // if (playMode == 1) {
-    //     soundVisualizer1(p);
-    // }
-    // else if (playMode == 2) {
-    //     soundVisualizer2(p);
-    // }
-    // else if (playMode == 3) {
-    //     soundVisualizer3(p);
-    // }
-    // else if (playMode == 4) {
-    //     soundVisualizer4(p);
-    // }
     if (playMode == 1) {
         soundVisualizer5(p);
     }
-    // else if (playMode == 6) {
-    //     soundVisualizer6(p);
-    // }
-    // else if (playMode == 2) {
-    //     soundVisualizer7(p);
-    // }
-    // else if (playMode == 3) {
-    //     soundVisualizer8(p);
-    // }
-    // else if (playMode == 9) {
-    //     soundVisualizer9(p);
-    // }
-    // else if (playMode == 3) {
-    //     soundVisualizer10(p);
-    // }
-    // else if (playMode == 11) {
-    //     soundVisualizer11(p);
-    // }
-    // else if (playMode == 12) {
-    //     soundVisualizer12(p);
-    // }
-    // else if (playMode == 13) {
-    //     soundVisualizer13(p);
-    // }
-    // else if (playMode == 14) {
-    //     soundVisualizer14(p);
-    // }
     else if (playMode == 2) {
         soundVisualizer15(p);
     }
-    // else if (playMode == 16) {
-    //     soundVisualizer16(p);
-    // }
     else if (playMode == 3) {
         soundVisualizer17(p);
     }
-    // else if (playMode == 18) {
-    //     soundVisualizer18(p);
-    // }
-    // else if (playMode == 19) {
-    //     soundVisualizer19(p);
-    // }
-    // else if (playMode == 20) {
-    //     soundVisualizer20(p);
-    // }
-    // else if (playMode == 21) {
-    //     soundVisualizer21(p);
-    // }
-    // else if (playMode == 22) {
-    //     soundVisualizer22(p);
-    // }
-    // else if (playMode == 23) {
-    //     soundVisualizer23(p);
-    // }
-    // else if (playMode == 24) {
-    //     soundVisualizer24(p);
-    // }
-    // else if (playMode == 25) {
-    //     soundVisualizer25(p);
-    // }
+    else if (playMode == 4) {
+        soundVisualizer7(p);
+    }
+    else if (playMode == 5) {
+        soundVisualizer10(p);
+    }
+    else if (playMode == 6) {
+        soundVisualizer21(p);
+    }
+    else if (playMode == 7) {
+        soundVisualizer16(p);
+    }
 }
 
 new p5(sketch);
@@ -418,7 +364,7 @@ p.background('black');
 p.blendMode(p.SCREEN);
 
 // 図形の色の設定
-p.stroke(Hue2, 50, 50, 50);
+p.stroke(hue1, 50, 50, 50);
 // 配列の長さ分、繰り返す
 for (let i = 0; i < waveform.length; i++){
     // 線の長さと座標
@@ -431,72 +377,72 @@ for (let i = 0; i < waveform.length; i++){
 }
 }
 
-// // function soundVisualizer7(p) {
-// //     // ブレンドモードと背景
-// //     p.blendMode(p.BLEND);
-// //     p.background('black');
+function soundVisualizer7(p) {
+    // ブレンドモードと背景
+    p.blendMode(p.BLEND);
+    p.background('black');
 
-// //     // 図形を配置する、全体の大きさ
-// //     let radius = winSize * 0.5;
+    // 図形を配置する、全体の大きさ
+    let radius = winSize * 0.5;
 
-// //     // 図形の色を設定
-// //     p.strokeWeight(2);
-// //     p.stroke(Hue1, 50, 100, volume * 100 + 50);
+    // 図形の色を設定
+    p.strokeWeight(2);
+    p.stroke(hue1, 50, 100, volume * 100 + 50);
 
-// //     // 配列の長さ分、繰り返す
-// //     for (let i = 0; i < waveform.length; i++) {
-// //         // 線の長さ
-// //         let length = waveform[i] * spectrum.length * 0.02;
+    // 配列の長さ分、繰り返す
+    for (let i = 0; i < waveform.length; i++) {
+        // 線の長さ
+        let length = waveform[i] * spectrum.length * 0.2;
 
-// //         // 配置する位置を調整
-// //         let position = p.map(i, 0, waveform.length, -radius / 2, radius / 2);
+        // 配置する位置を調整
+        let position = p.map(i, 0, waveform.length, -radius / 2, radius / 2);
 
-// //         // 4辺の座標（ベクトルを使って、1つの変数で2つの情報(x,y) を持つ）
-// //         let top = p.createVector(position, - radius / 2);
-// //         let bottom = p.createVector(position, radius / 2);
-// //         let left = p.createVector(- radius / 2, position);
-// //         let right = p.createVector(radius / 2, position);
+        // 4辺の座標（ベクトルを使って、1つの変数で2つの情報(x,y) を持つ）
+        let top = p.createVector(position, - radius / 2);
+        let bottom = p.createVector(position, radius / 2);
+        let left = p.createVector(- radius / 2, position);
+        let right = p.createVector(radius / 2, position);
 
-// //         // 上下左右、4辺に線を描く
-// //         p.line(top.x, top.y, top.x, top.y + length);
-// //         p.line(bottom.x, bottom.y, bottom.x, bottom.y + length);
-// //         p.line(left.x, left.y, left.x + length, left.y);
-// //         p.line(right.x, right.y, right.x + length, right.y);
-// //     }
-// // }
+        // 上下左右、4辺に線を描く
+        p.line(top.x, top.y, top.x, top.y + length);
+        p.line(bottom.x, bottom.y, bottom.x, bottom.y + length);
+        p.line(left.x, left.y, left.x + length, left.y);
+        p.line(right.x, right.y, right.x + length, right.y);
+    }
+}
 
-// function soundVisualizer10(p) {
-//     // ブレンドモードと背景
-//     p.blendMode(p.BLEND);
-//     p.background('black');
-//     p.blendMode(p.SCREEN);
+function soundVisualizer10(p) {
+    // ブレンドモードと背景
+    p.blendMode(p.BLEND);
+    p.background('black');
+    p.blendMode(p.SCREEN);
 
-//     // 角度と大きさ
-//     let angle = 0;
-//     let radius = 0;
+    // 角度と大きさ
+    let angle = 0;
+    let radius = 0;
 
-//     // 配列の長さ分、繰り返す
-//     for (let i = 0; i < waveform.length; i++) {
-//         // キャンバスを回転
-//         p.rotate(time * 0.05);
+    // 配列の長さ分、繰り返す
+    for (let i = 0; i < waveform.length; i++) {
+        // キャンバスを回転
+        p.rotate(time * 0.05);
 
-//         // 角度と大きさを増やす
-//         angle += 15;
-//         radius += 0.4;
+        // 角度と大きさを増やす
+        angle += 15;
+        radius += 0.4;
 
-//         // 円の大きさと座標
-//         let size = waveform[i] * volume * 10 + 3;
-//         let x = p.sin(angle) * radius;
-//         let y = p.cos(angle) * radius;
+        // 円の大きさと座標
+        let size = waveform[i] * volume * 10 + 3;
+        let x = p.sin(angle) * radius;
+        let y = p.cos(angle) * radius;
 
-//         // 図形の色を設定
-//         p.noStroke();
-//         p.fill(Hue2, x, 100);
+        // 図形の色を設定
+        p.noStroke();
+        p.fill(hue1, x, 100);
 
-//         // 円を描く
-//         p.ellipse(x, y, size);
-//     }
-// }
+        // 円を描く
+        p.ellipse(x, y, size);
+    }
+}
 
 
 function soundVisualizer15(p) {
@@ -519,7 +465,7 @@ function soundVisualizer15(p) {
         // 図形の色を設定
         p.noFill();
         p.strokeWeight(3);
-        (Hue1, 50, 100);
+        p.stroke(hue1, 50, 100);
 
         // 頂点を描く（曲線でつなぐ）
         p.curveVertex(x, h_length);
@@ -552,14 +498,71 @@ function soundVisualizer17(p) {
         // 図形の色を設定
         p.noFill();
         p.strokeWeight(2);
-        p.stroke(Hue1, Saturation, 100, 30);
+        p.stroke(hue1, Saturation, 100, 30);
 
         // 円を描く
         p.ellipse(x, y, size);
     }
 }
 
+function soundVisualizer21(p){
+// ブレンドモードと背景
+p.blendMode(p.BLEND);
+p.background('black');
+p.blendMode(p.SCREEN);
+
+// 配列の長さ分、繰り返す
+for (let i = 0; i < spectrum.length; i+= 2) {
+    // キャンバスを回転
+    p.rotate(i);
+    p.rotate(time);
+
+    // 図形の大きさ
+    let size = p.map(spectrum[i], 0, 255, 0, winSize * 0.6);
+
+    // 図形の色の設定
+    p.noFill();
+    let Saturation = p.map(size, 0, winSize * 0.6, 10, 100);
+    p.strokeWeight(2);
+    p.stroke(hue1, Saturation, 100);
+
+    // 弧を描く
+    p.arc(0, 0, size, size, i * 0.5, i, p.PIE);
+}
+}
+
+function soundVisualizer16(p){
+// ブレンドモードと背景
+p.blendMode(p.BLEND);
+p.background('black');
+
+// 頂点の記録開始
+p.beginShape();
+
+// 配列の長さ分繰り返す
+for (let i = 0; i < waveform.length; i++) {
+    // 横幅と縦幅の長さ
+    let w_length = winSize * 0.8;
+    let h_length = p.map(waveform[i], 0, 1, 0, winSize * 0.2);
+
+    // x座標
+    let x = p.map(i, 0, waveform.length, -w_length/2, w_length/2);
+
+    // 図形の色を設定
+    p.noFill();
+    p.strokeWeight(10);
+    p.stroke(hue1, 50, 100);
+
+    // 頂点を描く（曲線でつなぐ）
+    p.curveVertex(x, h_length);
+}
+
+// 頂点の記録終了
+p.endShape();
+}
 
 export {
     soundBlob,
+    hue1,
+    playMode,
 }

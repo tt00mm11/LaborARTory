@@ -25,9 +25,11 @@ import {
 
 import {
     soundBlob,
+    playMode,
+    hue1,
 } from './sound_visualizer.js'
 
-let soundUrl;
+let soundUrl, number, color;
 
 $('#save').on('click', function () {
     const soundName = $('#sound_name').val();
@@ -38,6 +40,8 @@ $('#save').on('click', function () {
         fileName: fileName,
         soundName: soundName,
         time: serverTimestamp(),
+        vNumber: playMode,
+        vColor: hue1,
     };
     setDoc(doc(db, 'sounds', fileName), data);
     uploadBytes(storageRef, soundBlob).then((snapshot) => {
@@ -71,6 +75,13 @@ onSnapshot(q, (querySnapshot) => {
 
 $('body').on('click', 'li', async function () {
     console.log(this.id);
+    number = getDoc(doc(db, 'sounds', this.id)).then((doc) => {
+        console.log(doc.data().vNumber);
+        return doc.data().vNumber;
+    });
+    color = getDoc(doc(db, 'sounds', this.id)).then((doc) => {
+        return doc.data().vColor;
+    });
     soundUrl = await getDownloadURL(ref(storage, this.id)).then((url) => {
         console.log(url);
         return url;
@@ -79,4 +90,6 @@ $('body').on('click', 'li', async function () {
 
 export {
     soundUrl,
+    number,
+    color,
 }
