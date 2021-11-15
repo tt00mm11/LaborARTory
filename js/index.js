@@ -25,6 +25,7 @@ import {
 
 import {
     soundBlob,
+    // mixingFileBlob,
     playMode,
     hue1,
 } from './sound_visualizer.js'
@@ -32,11 +33,13 @@ import {
 let soundUrl, number, color;
 
 $('#save').on('click', function () {
+    const userName = $('#user_name').val();
     const soundName = $('#sound_name').val();
     const folder = collection(db, 'sounds');
     const fileName = doc(folder).id;
     const storageRef = ref(storage, fileName);
     const data = {
+        userName: userName,
         fileName: fileName,
         soundName: soundName,
         time: serverTimestamp(),
@@ -44,9 +47,16 @@ $('#save').on('click', function () {
         vColor: hue1,
     };
     setDoc(doc(db, 'sounds', fileName), data);
-    uploadBytes(storageRef, soundBlob).then((snapshot) => {
-        alert('アップロード完了！');
-    });
+    // if (soundBlob !== undefined) {
+        uploadBytes(storageRef, soundBlob).then((snapshot) => {
+            alert('アップロード完了！');
+        });
+    // } else if (mixingFileBlob !== undefined) {
+    //     for (let i = 0; i < mixingFileBlob.length; i++) {
+    //         uploadBytes(storageRef, mixingFileBlob[i]);
+    //     }
+    //     alert('アップロード完了！');
+    // }
 });
 
 const q = query(collection(db, 'sounds'), orderBy('time', 'desc'));
@@ -65,7 +75,7 @@ onSnapshot(q, (querySnapshot) => {
     dataArray.forEach(function (data) {
     tagArray.push(`
         <li id="${data.id}">
-        <p>Unknown recorded ${data.data.soundName} at ${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}</p>
+        ${data.data.userName} recorded ${data.data.soundName} at ${convertFromFirestoreTimestampToDatetime(data.data.time.seconds)}
         </li>
     `);
     });
@@ -75,11 +85,10 @@ onSnapshot(q, (querySnapshot) => {
 
 $('body').on('click', 'li', async function () {
     console.log(this.id);
-    number = getDoc(doc(db, 'sounds', this.id)).then((doc) => {
-        console.log(doc.data().vNumber);
+    number = await getDoc(doc(db, 'sounds', this.id)).then((doc) => {
         return doc.data().vNumber;
     });
-    color = getDoc(doc(db, 'sounds', this.id)).then((doc) => {
+    color = await getDoc(doc(db, 'sounds', this.id)).then((doc) => {
         return doc.data().vColor;
     });
     soundUrl = await getDownloadURL(ref(storage, this.id)).then((url) => {

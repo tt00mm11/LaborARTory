@@ -45,6 +45,7 @@ let spectrum, waveform, volume, time;
 
 let mic, recorder, soundFile, soundBlob, metronome, rec, loadSound;
 const mixingFile = [];
+const mixingFileBlob = [];
 let state = 0;
 
 let mixingNumber = 0;
@@ -83,19 +84,18 @@ const sketch = (p) => {
 
     $('#play_import_sound').on('click', function () {
         theSound[0].play();
-        hue2 = p.int(p.random(1, 360));
     });
 
     $('#recording_button_i').on('click', function () {
         console.log('Start Rec!');
-        if (state === 0 && mic.enabled) {
+        if (state % 3 === 0 && mic.enabled) {
             // record to our p5.SoundFile
             count = 0;
             $('#recording_button_i').text('録音中...');
             recorder.record(soundFile);
             state++;
         }
-        else if (state === 1) {
+        else if (state  % 3 === 1) {
             // stop recorder and
             // send result to soundFile
             recorder.stop();
@@ -103,11 +103,11 @@ const sketch = (p) => {
             $('#recording_button_i').text('再生');
             state++;
         }
-        else if (state === 2) {
+        else if (state  % 3 === 2) {
             hue2 = p.int(p.random(1, 360));
-            soundFile.play(); // play the result!
+            soundFile.play();
             $('#recording_button_i').text('録音');
-            state = 0;
+            state++; // play the result!
         }
     });
 
@@ -138,6 +138,7 @@ const sketch = (p) => {
             // stop recorder and
             // send result to soundFile
             recorder.stop();
+            // mixingFileBlob[mixingNumber] = mixingFile[mixingNumber].getBlob();
             $('#mixing_button_i').text('再生');
             state++;
         }
@@ -151,15 +152,15 @@ const sketch = (p) => {
             // save(mixingFile, 'mySound.wav');
             state = 0;
             mixingNumber++;
+            count = 9;
         }
     })
 
     $('#play').on('click', function () {
-        // $('#loadSound').append(`<source src="${soundUrl}" type="audio/wav">`);
-        // hue1 = color;
-        // playMode = number;
         loadSound = p.loadSound(soundUrl);
         setTimeout(function () {
+            hue1 = p.int(color);
+            playMode = number;
             loadSound.play();
         }, 2000);
     });
@@ -183,7 +184,7 @@ const sketch = (p) => {
 
 
         // 画面サイズの縦横を比較し、小さい値をキャンバスサイズに設定
-        winSize = p.min(500, 500);
+        winSize = p.min(750, 750);
         let canvas = p.createCanvas(winSize, winSize);
 
         canvas.parent(parent);
@@ -281,7 +282,7 @@ const sketch = (p) => {
             }
 
             // 下矢印キーを押して、色彩のみ切り替える
-            if (p.keyCode == p.DOWN_ARROW) {
+            if (p.keyCode == p.DOWN_ARROW || p.keyCode == p.UP_ARROW) {
                 // 色彩をランダムに決める
                 hue1 = p.int(p.random(1, 360));
             }
@@ -319,40 +320,35 @@ function playModeSetting(p) {
 new p5(sketch);
 
 function soundRecorder(p) {
-    if (state === 0) {
-        p.fill('orange');
-        p.noStroke();
-        p.circle(50, 50, 100);
-
-        p.fill('white');
-        p.textSize(16);
-        p.textAlign(p.CENTER, p.CENTER);
-
-        p.text('Rec', 50, 50);
-    }
-    else if (state === 1) {
+    if (state % 3 === 1) {
         p.fill('red');
         p.noStroke();
         p.circle(50, 50, 100);
         p.fill('white');
+        p.textSize(16);
+        p.textAlign(p.CENTER, p.CENTER);
         if (count <= 0) {
             p.text('Recording!', 50, 50);
         } else {
             p.text(count, 50, 50);
         }
     }
-    else if (state === 2) {
+    else if (state % 3 === 2) {
         p.fill('crimson');
         p.noStroke();
         p.circle(50, 50, 100);
         p.fill('white');
+        p.textSize(16);
+        p.textAlign(p.CENTER, p.CENTER);
         p.text('Done!', 50, 50);
     }
-    else if (state === 3) {
+    else if (state % 3 === 0 && state !== 0) {
         p.fill('aqua');
         p.noStroke();
         p.circle(50, 50, 100);
         p.fill('white');
+        p.textSize(16);
+        p.textAlign(p.CENTER, p.CENTER);
         p.text('Playing!', 50, 50);
     }
 }
@@ -431,7 +427,7 @@ function soundVisualizer10(p) {
         radius += 0.4;
 
         // 円の大きさと座標
-        let size = waveform[i] * volume * 10 + 3;
+        let size = waveform[i] * spectrum.length * 0.1 + 3;
         let x = p.sin(angle) * radius;
         let y = p.cos(angle) * radius;
 
@@ -563,6 +559,7 @@ p.endShape();
 
 export {
     soundBlob,
+    // mixingFileBlob,
     hue1,
     playMode,
 }
