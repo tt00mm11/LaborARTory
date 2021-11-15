@@ -31,5 +31,12 @@
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.4.0"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines":{
+    "node":"16.13.0"
+  },
   "description": ""
 }
