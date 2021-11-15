@@ -159,11 +159,12 @@
             bottom: 0;
             width: 100%;
             position: fixed;
-            height: 100 px;
-            background-color: black;
+            height: 100px;
+            background-color: #4e4e4e;
             color: cornsilk;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
+            border: white 1px solid;
         }
 
         .footer_container {
@@ -172,7 +173,6 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            background-color: rgb(0, 0, 0);
         }
 
         /* main_2 */
@@ -183,9 +183,11 @@
             top: 9%;
             right: 0%;
             background-color: rgb(78 78 78);
-            height: 100vh;
+            height: 731px;
             display: flex;
             margin-left: 320px;
+            border: white 1px solid;
+            border-bottom: none;
         }
 
         .sns_content {
@@ -196,13 +198,13 @@
             height: 100%;
             display: flex;
             align-items: center;
-            border: white 1px solid;
+            border-right: white 1px solid;
             overflow: hidden;
         }
 
         .close_open {
             width: 100px;
-            height: 100％;
+            height: 100%;
             justify-content: center;
             align-items: center;
             display: flex;
@@ -219,6 +221,7 @@
         #history {
             list-style-type: none;
             width: 300px;
+            height: 730px;
             color: white;
             font-size: 10px;
             overflow-y: scroll;
@@ -266,25 +269,20 @@
             /* アップロードボタンのスタイルを無効にする */
         }
 
-        .footer_2 {
-            position: fixed;
-            /*←絶対位置*/
-            bottom: 0px;
-            /*下に固定*/
-            width: 300px;
-            height: 160px;
+        /* .footer_2 {
+            height: 100px;
             color: cornsilk;
-            background-color: rgb(85, 85, 84);
+            background-color: #4e4e4e;
             display: flex;
             flex-direction: column;
-            padding: 16px 0;
-            z-index: 100;
-        }
+            margin: 0;
+        } */
 
         #footer_2_content {
             display: flex;
             justify-content: center;
-            margin-bottom: 16px;
+            height: 100px;
+            margin-top: 20px;
         }
 
         #content_form {
@@ -292,11 +290,13 @@
             justify-content: center;
             flex-direction: column;
             margin-right: 8px;
-        }
-
-        #content_form p {
             font-size: 12px;
 
+        }
+
+        #content_form input {
+            font-size: 12px;
+            width: 160px;
         }
         /* button */
 
@@ -368,6 +368,66 @@
 
         button:hover:after {
             opacity: 0;
+        }
+
+        #save {
+            width: 160px;
+            height: 80px;
+            font-size: xx-large;
+        }
+
+        #play {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 240px;
+            height: 80px;
+            font-size: xx-large;
+        }
+
+        #play.available1 {
+            animation: redFlash 2s infinite;
+        }
+        #play.available2 {
+            animation: turquoiseFlash 2s infinite;
+        }
+        #play.available3 {
+            animation: blueFlash 2s infinite;
+        }
+
+
+
+        @keyframes redFlash {
+            0%, 100% {
+                /* 明るく光るよう影を重ねる */
+                box-shadow: 0 0 10px #ff6262, 0 0 20px #ff7462, 0 0 30px #ff7962, 0 0 40px #ff9c62, 0 0 50px #ffc062, 0 0 70px #8f6c38, 0 0 80px #503c1f, 0 0 100px #503c1f;
+            }
+            50% {
+                /* 淡く光るよう影を重ねる */
+                box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffd9a1, 0 0 40px #ffc062;
+            }
+        }
+
+        @keyframes blueFlash {
+            0%, 100% {
+                /* 明るく光るよう影を重ねる */
+                box-shadow: 0 0 10px #77faff, 0 0 20px #77e4ff, 0 0 30px #77c2ff, 0 0 40px #77a2ff, 0 0 50px #7785ff, 0 0 70px #3a4077, 0 0 80px #272c52, 0 0 100px #272c52;
+            }
+            50% {
+                /* 淡く光るよう影を重ねる */
+                box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #bec5ff, 0 0 40px #7785ff;
+            }
+        }
+
+        @keyframes turquoiseFlash {
+            0%, 100% {
+                /* 明るく光るよう影を重ねる */
+                box-shadow: 0 0 10px #197E8B, 0 0 20px #19878b, 0 0 30px #198b7c, 0 0 40px #198b6e, 0 0 50px #198b45, 0 0 70px #115c33, 0 0 80px #0a351d, 0 0 100px #0a351d;
+            }
+            50% {
+                /* 淡く光るよう影を重ねる */
+                box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #73bdc5, 0 0 40px #197E8B;
+            }
         }
 
         .file_button {

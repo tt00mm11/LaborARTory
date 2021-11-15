@@ -14,7 +14,7 @@
 
 
 <!-- js_modal表示 sa 211111   -->
-<!-- <div class="js_modal">
+<div class="js_modal">
     <div class="modal_content">
       <div>※注意</div>
       <p class="modal_p">音が出ますので気をつけてください！<br>Please be careful with the volume of the sound!<br></p>
@@ -22,7 +22,7 @@
         <a href="#start">start</a>
       </div>
     </div>
-  </div> -->
+  </div>
 <!-- ここまで -->
 <header>
   <div class="logo_img" id="logo_img_i"><img src="img/Soundalize_1.png" alt=""></div>
@@ -40,13 +40,20 @@
     <footer>
       <div class="footer_container" id="footer_container_i">
         <div class="recording" id="recording_i"><button id="recording_button_i"><span>録音</span></button></div>
+          <div id="footer_2_content">
+            <div id="content_form">
+              <p>ユーザー名</p><input id="user_name" type="text" placeholder="例）サウンド一郎">
+              <p>サウンド名</p><input id="sound_name" type="text" placeholder="例）チャイムの音">
+            </div>
+            <button id="save"><span>保存</span></button>
+          </div>
         <div class="import" id="import_i">
           <div class="file_button">
             <p>ファイルを選択して下さい</p>
             <input type="file" class="import_input" id="import_input_i">
           </div>
-          <button id="play_import_sound"><span>アップした音を再生</span></button>
         </div>
+        <button id="play">再生</button>
         <!-- <div class="mixing" id="mixing_i"><button id="mixing_button_i"><span>mixing</span></button></div> -->
       </div>
     </footer>
@@ -61,16 +68,6 @@
 
       <div class="sns_content" id="sns_content_i">
         <ul id="history"></ul>
-        <div class="footer_2" id="footer_2_i">
-          <div id="footer_2_content">
-            <div id="content_form">
-              <p>ユーザー名</p><input id="user_name" type="text" placeholder="例）サウンド一郎">
-              <p>サウンド名</p><input id="sound_name" type="text" placeholder="例）チャイムの音">
-            </div>
-            <button id="save"><span>保存</span></button>
-          </div>
-          <button id="play"><span>ログに残した音を再生</span></button>
-        </div>
       </div>
     </div>
 

@@ -48,7 +48,7 @@ const mixingFile = [];
 const mixingFileBlob = [];
 let state = 0;
 
-let mixingNumber = 0;
+let playCount = 0;
 
 let currentTempo = 128;
 
@@ -63,16 +63,15 @@ $(window).on('load',function(){
     $('.js_modal').fadeIn(3000);
     return false;
 });
-$('#start').on('click',function(){
+$('a').on('click',function(){
     $('.js_modal').fadeOut();
     return false;
 });
 
 function changeSound(p) {
-    theSound[0] = p.loadSound($('#import_input_i').prop('files')[0]);
-    // サウンドの初期化
-    theSound[0].stop();
-    theSound[0].setVolume(0.5);
+    loadSound = p.loadSound($('#import_input_i').prop('files')[0]);
+    $('#play').removeClass();
+    $('#play').addClass('available3');
 }
 
 // サウンドデータをロードする
@@ -82,87 +81,108 @@ function changeSound(p) {
 const sketch = (p) => {
     uploadSound.addEventListener('change', () => changeSound(p), false);
 
-    $('#play_import_sound').on('click', function () {
-        theSound[0].play();
-    });
-
     $('#recording_button_i').on('click', function () {
         console.log('Start Rec!');
-        if (state % 3 === 0 && mic.enabled) {
+        if (state % 2 === 0 && mic.enabled) {
             // record to our p5.SoundFile
             count = 0;
             $('#recording_button_i').text('録音中...');
             recorder.record(soundFile);
             state++;
         }
-        else if (state  % 3 === 1) {
+        else if (state % 2 === 1) {
             // stop recorder and
             // send result to soundFile
             recorder.stop();
             soundBlob = soundFile.getBlob();
-            $('#recording_button_i').text('再生');
-            state++;
-        }
-        else if (state  % 3 === 2) {
-            hue2 = p.int(p.random(1, 360));
-            soundFile.play();
+            loadSound = p.loadSound(soundBlob);
             $('#recording_button_i').text('録音');
-            state++; // play the result!
+            $('#play').removeClass();
+            $('#play').addClass('available1');
+            state++;
         }
     });
 
-    $('#mixing_button_i').on('click', function () {
-        console.log('Start mixing!');
-        if (mixingFile[mixingNumber] === undefined) {
-            mixingFile[mixingNumber] = new p5.SoundFile();
-        }
-        if (state === 0 && mic.enabled) {
-            metronome = setInterval(function () {
-                theSound[1].play();
-                count--;
-                setTimeout(function () {
-                    theSound[1].stop();
-                    theSound[1].currentTime(0);
-                }, 100)
-            }, 60 / currentTempo * 1000);
-            // record to our p5.SoundFile
+    // $('#mixing_button_i').on('click', function () {
+    //     console.log('Start mixing!');
+    //     if (mixingFile[mixingNumber] === undefined) {
+    //         mixingFile[mixingNumber] = new p5.SoundFile();
+    //     }
+    //     if (state === 0 && mic.enabled) {
+    //         metronome = setInterval(function () {
+    //             theSound[1].play();
+    //             count--;
+    //             setTimeout(function () {
+    //                 theSound[1].stop();
+    //                 theSound[1].currentTime(0);
+    //             }, 100)
+    //         }, 60 / currentTempo * 1000);
+    //         // record to our p5.SoundFile
 
-            setTimeout(function () {
-                recorder.record(mixingFile[mixingNumber]);
-            }, 8 * 60 / currentTempo * 1000);
-            $('#mixing_button_i').text('録音中...');
-            state++;
-        }
-        else if (state === 1) {
-            clearInterval(metronome);
-            // stop recorder and
-            // send result to soundFile
-            recorder.stop();
-            // mixingFileBlob[mixingNumber] = mixingFile[mixingNumber].getBlob();
-            $('#mixing_button_i').text('再生');
-            state++;
-        }
-        else if (state === 2) {
-            hue2 = p.int(p.random(1, 360));
-            for (let i = 0; i < mixingNumber + 1; i++) {
-                mixingFile[i].play();
-                // play the result!
-            }
-            $('#mixing_button_i').text('mixing');
-            // save(mixingFile, 'mySound.wav');
-            state = 0;
-            mixingNumber++;
-            count = 9;
-        }
-    })
+    //         setTimeout(function () {
+    //             recorder.record(mixingFile[mixingNumber]);
+    //         }, 8 * 60 / currentTempo * 1000);
+    //         $('#mixing_button_i').text('録音中...');
+    //         state++;
+    //     }
+    //     else if (state === 1) {
+    //         clearInterval(metronome);
+    //         // stop recorder and
+    //         // send result to soundFile
+    //         recorder.stop();
+    //         // mixingFileBlob[mixingNumber] = mixingFile[mixingNumber].getBlob();
+    //         $('#mixing_button_i').text('再生');
+    //         state++;
+    //     }
+    //     else if (state === 2) {
+    //         hue2 = p.int(p.random(1, 360));
+    //         for (let i = 0; i < mixingNumber + 1; i++) {
+    //             mixingFile[i].play();
+    //             // play the result!
+    //         }
+    //         $('#mixing_button_i').text('mixing');
+    //         // save(mixingFile, 'mySound.wav');
+    //         state = 0;
+    //         mixingNumber++;
+    //         count = 9;
+    //     }
+    // })
+
+    $('body').on('click', 'li', function () {
+        $('#play').text('ロード中');
+        setTimeout(function () {
+            soundBlob = soundUrl;
+            console.log('loading...');
+            loadSound = p.loadSound(soundBlob);
+        }, 2000)
+        setTimeout(function () {
+            console.log('loaded!');
+            $('#play').text('再生');
+            $('#play').removeClass();
+            $('#play').addClass('available2');
+        }, 3000);
+    });
 
     $('#play').on('click', function () {
-        loadSound = p.loadSound(soundUrl);
-        setTimeout(function () {
-            hue1 = p.int(color);
-            playMode = number;
+        if (playCount === 0) {
+            if (color !== undefined) {
+                hue1 = p.int(color);
+            }
+            if (number !== undefined) {
+                playMode = number;
+            }
             loadSound.play();
-        }, 2000);
+            playCount++;
+            $('#play').text('停止');
+        } else {
+            loadSound.stop();
+            playCount = 0;
+            $('#play').text('再生');
+        }
+        loadSound.onended(function () {
+            playCount = 0;
+            $('#play').text('再生');
+        });
     });
 
     p.setup = () => {
@@ -558,7 +578,6 @@ p.endShape();
 
 export {
     soundBlob,
-    // mixingFileBlob,
     hue1,
     playMode,
 }
