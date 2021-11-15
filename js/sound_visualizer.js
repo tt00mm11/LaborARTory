@@ -57,25 +57,13 @@ let uploadSound = document.getElementById('import_input_i');
 
 let count = 9;
 
-//モーデル sato 211111
-
-$(window).on('load',function(){
-    $('.js_modal').fadeIn(3000);
-    return false;
-});
-$('a').on('click',function(){
-    $('.js_modal').fadeOut();
-    return false;
-});
-
+// サウンドデータをロードする
+    // theSound[0] = loadSound('../audio/claploop4.mp3');
 function changeSound(p) {
     loadSound = p.loadSound($('#import_input_i').prop('files')[0]);
     $('#play').removeClass();
     $('#play').addClass('available3');
 }
-
-// サウンドデータをロードする
-    // theSound[0] = loadSound('../audio/claploop4.mp3');
 
 // 初期化
 const sketch = (p) => {
@@ -86,7 +74,8 @@ const sketch = (p) => {
         if (state % 2 === 0 && mic.enabled) {
             // record to our p5.SoundFile
             count = 0;
-            $('#recording_button_i').text('Rec..');
+            $('#recording_button_i').html('<img src="'+'img/rec_ing.png'+'" alt="">');
+            // $('#recording_button_i').text('Rec..'); ////////////////////////////////藤﨑
             recorder.record(soundFile);
             state++;
         }
@@ -96,7 +85,8 @@ const sketch = (p) => {
             recorder.stop();
             soundBlob = soundFile.getBlob();
             loadSound = p.loadSound(soundBlob);
-            $('#recording_button_i').text('Rec');
+            $('#recording_button_i').html('<img src="' + 'img/rec.png' + '" alt="">');
+            // $('#recording_button_i').text('Rec');/////////////////////藤﨑
             $('#play').removeClass();
             $('#play').addClass('available1');
             state++;
@@ -149,7 +139,7 @@ const sketch = (p) => {
     // })
 
     $('body').on('click', 'li', function () {
-        $('#play').text('load');
+        $('#play').text('Loading...');
         setTimeout(function () {
             soundBlob = soundUrl;
             console.log('loading...');
@@ -157,7 +147,7 @@ const sketch = (p) => {
         }, 2000)
         setTimeout(function () {
             console.log('loaded!');
-            $('#play').text('play');
+            $('#play').text('▶︎');
             $('#play').removeClass();
             $('#play').addClass('available2');
         }, 3000);
@@ -173,15 +163,15 @@ const sketch = (p) => {
             }
             loadSound.play();
             playCount++;
-            $('#play').text('stop');
+            $('#play').html('<b>'+'||'+'</b>');
         } else {
             loadSound.stop();
             playCount = 0;
-            $('#play').text('play');
+            $('#play').text('▶︎');
         }
         loadSound.onended(function () {
             playCount = 0;
-            $('#play').text('paly');
+            $('#play').text('▶︎');
         });
     });
 
@@ -204,7 +194,7 @@ const sketch = (p) => {
 
 
         // 画面サイズの縦横を比較し、小さい値をキャンバスサイズに設定
-        winSize = p.min(750, 750);
+        winSize = p.min(550, 550);
         let canvas = p.createCanvas(winSize, winSize);
 
         canvas.parent(parent);

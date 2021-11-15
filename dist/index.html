@@ -8,25 +8,44 @@
   <!-- 藤﨑 211111 -->
   <link rel="stylesheet" href="css/style.css">
 
+
   <title>Soundalize</title>
-  <link rel="icon" href="img/favicon.ico">
+  <link rel="icon" href="img/favi.ico">
 </head>
 
 
 <!-- js_modal表示 sa 211111   -->
 <div class="js_modal">
-    <div class="modal_content">
-      <div>※注意</div>
-      <p class="modal_p">このアプリは音を出しますので、音量にご注意ください！<br>Please be careful with the volume of the sound!<br></p>
-      <div class="modal_close">
-        <a href="#start">start</a>
-      </div>
+  <div class="modal_content">
+    <div>※注意</div>
+    <p class="modal_p">音を使ったアプリです。音量にご注意ください！<br>Please be careful with the volume of the sound!<br></p>
+    <div class="modal_close">
+      <a href="#start" id="notion_start"><p>start</p></a>
     </div>
   </div>
+</div>
+
+
+<!-- ロード -->
+<div id="splash">
+  <div id="splash_logo">
+    <img src="img/Soundalize_3.png" alt="" class="fadeUp">
+  </div>
+</div>
 <!-- ここまで -->
 <header>
+  <div class="open">
+    <p>i</p>
+  </div>
+  <div class="modal">
+    <video src="audio/info.mp4" poster="img/Soundalize_3.png" controls></video>
+    <div class="close"></div>
+  </div>
+  <div class="overlay"></div>
   <div class="logo_img" id="logo_img_i"><img src="img/Soundalize_3.png" alt=""></div>
+
 </header>
+<!-- modal info 表示 sa 211115 -->
 
 <body>
   <!-- 藤﨑 211111 -->
@@ -37,52 +56,89 @@
       </div>
     </div>
   </main>
-    <footer>
-      <div class="footer_container" id="footer_container_i">
-        <div class="recording" id="recording_i"><button id="recording_button_i"><span>Rec</span></button></div>
-          <div id="footer_2_content">
-            <div id="content_form">
-              <p>ユーザー名</p><input id="user_name" type="text" placeholder="例）サウンド一郎">
-              <p>サウンド名</p><input id="sound_name" type="text" placeholder="例）チャイムの音">
-            </div>
-            <button id="save"><span>save</span></button>
-          </div>
-        <div class="import" id="import_i">
-          <button id="recording_button_i">
+  <footer>
+    <div class="footer_container" id="footer_container_i">
+      <!-- <div class="recording" id="recording_i"><button id="recording_button_i"><span>rec</span></button></div> -->
+      <div class="recording" id="recording_i"><button id="recording_button_i"><img src="img/rec.png" alt=""></button>
+      </div>
+      <div id="footer_2_content">
+        <div id="content_form">
+          <!-- <p>ユーザー名</p> -->
+          <input id="user_name" type="text" placeholder="   user neme">
+          <!-- <p>サウンド名</p> -->
+          <input id="sound_name" type="text" placeholder="   sound title">
+        </div>
+        <!-- save -->
+        <button id="save"><img src="img/save.png" alt=""></button>
+        <!-- <button id="save"><span>Save</span></button> -->
+      </div>
+      <div class="import" id="import_i">
+        <button id="recording_button_i">
           <div class="file_button">
-            <p>import file</p>
+            <img src="img/sound_import2.png" alt="">
             <input type="file" class="import_input" id="import_input_i">
           </div>
-          </button>
-        </div>
-        <button id="play">play</button>
-        <!-- <div class="mixing" id="mixing_i"><button id="mixing_button_i"><span>mixing</span></button></div> -->
+        </button>
       </div>
-    </footer>
-    <!-- SNS箇所 -->
-    <div class="main_2_sns" id="main_2_sns_i">
-      <div class="close_open_wrap" id="close_open_wrap_i">
-        <div class="close_open" id="close_open_i">
-          <p>Log</p>
-          <img src="img/arrow.png" alt="" id="close_open_btn_i">
-        </div>
-      </div>
-
-      <div class="sns_content" id="sns_content_i">
-        <ul id="history"></ul>
+      <button id="play">▶︎</button>
+      <!-- <div class="mixing" id="mixing_i"><button id="mixing_button_i"><span>mixing</span></button></div> -->
+    </div>
+  </footer>
+  <!-- SNS箇所 -->
+  <div class="main_2_sns" id="main_2_sns_i">
+    <div class="close_open_wrap" id="close_open_wrap_i">
+      <div class="close_open" id="close_open_i">
+        <p>Log</p>
+        <img src="img/arrow.png" alt="" id="close_open_btn_i">
       </div>
     </div>
+
+    <div class="sns_content" id="sns_content_i">
+      <ul id="history"></ul>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="main.js"></script>
   <script>
     $(function () {
+      //モーデル sato 211111
+
+      $(window).on('load', function () {
+        $('.js_modal').fadeIn(8000);
+        return false;
+      });
+      $('a').on('click', function () {
+        $('.js_modal').fadeOut(1000);
+        return false;
+      });
+
+      function changeSound(p) {
+        loadSound = p.loadSound($('#import_input_i').prop('files')[0]);
+        $('#play').removeClass();
+        $('#play').addClass('available3');
+      }
+
+
+      /////////////ロード/////////////
+      $(window).on('load', function () {
+        $("#splash").delay(2000).fadeOut('slow');//ローディング画面を1.5秒（1500ms）待機してからフェードアウト
+        $("#splash_logo").delay(1800).fadeOut('slow');//ロゴを1.2秒（1200ms）待機してからフェードアウト
+      });
+      //////////////////////////////
+
+
       $('#close_open_btn_i').on('click', function () {
         //alert('yey');
         $('#close_open_btn_i').toggleClass("close");
         $('#sns_content_i').slideToggle();
       });
+      $('#import_input_i').on('change', function () {
+        $('.file_button').children('img').attr('src', 'img/sound_import3.png');
+      });
+
+
     });
   </script>
 

@@ -54,6 +54,20 @@
             animation: alternate 8s linear infinite;
         }
 
+        #notion_start p {
+            transition: 0.5s;
+            color: rgb(0, 0, 0);
+            background-color: whitesmoke;
+            border-radius: 50px;
+        }
+
+        #notion_start :hover {
+            color: white;
+            background-color: rgb(75, 73, 73);
+            border-radius: 50px;
+            transform: all 3s;
+        }
+
         @keyframes animate {
             0% {
                 background-position: 0%;
@@ -97,6 +111,54 @@
             justify-content: center;
             font-family: serif;
             z-index: 98;
+        }
+
+        /* インフォ */
+
+        .open {
+            position: relative;
+            margin-left: 10px;
+            margin-top: 5px;
+            border: 1px solid #333333;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-family: serif;
+            color: #0b0b0b;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50%;
+        }
+
+        .open p {
+            margin-left: 15px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 430px;
+            background-color: lightgray;
+            display: none;
+            z-index: 2;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1;
+            display: none;
+        }
+
+        video {
+            width: 600px;
+            height: 430px;
         }
 
         /* ヘッダー */
@@ -164,7 +226,7 @@
             color: cornsilk;
             display: flex;
             justify-content: flex-start;
-            border: white 1px solid;
+            border: rgb(179, 179, 179) 1px solid;
             z-index: 1;
         }
 
@@ -183,23 +245,28 @@
             position: fixed;
             top: 9%;
             right: 0%;
-            background-color: rgb(78 78 78);
+            /* background-color: rgb(78 78 78); */
             height: 731px;
             display: flex;
             margin-left: 320px;
-            border: white 1px solid;
-            border-bottom: none;
+            /* border: white 1px solid; */
+            /* border-bottom: none; */
         }
 
         .sns_content {
             display: none;
         }
 
+        .close {
+            transform: rotate(180deg);
+            /* transition: all 1s; */
+        }
+
         .close_open_wrap {
             height: 100%;
             display: flex;
             align-items: center;
-            border-right: white 1px solid;
+            /* border-right: white 1px solid; */
             overflow: hidden;
         }
 
@@ -220,6 +287,7 @@
         }
 
         #history {
+            margin-top: 30px;
             list-style-type: none;
             width: 300px;
             height: 730px;
@@ -236,13 +304,12 @@
             font-size: x-large;
             height: 50px;
             font-size: medium;
-        }
-
-        #history li {
-            background-color: rgb(26, 126, 139);
+            border: 2px solid rgb(26, 126, 139);
+            background-color: black;
             margin-bottom: 10px;
             margin: 10px 10px;
-            border-radius: 1vh;
+            border-radius: 2.5vh;
+            border-top-left-radius: 3px;
             margin-top: 10px;
             text-align: center;
         }
@@ -252,33 +319,11 @@
             height: 50px;
         } */
 
-        label {
-            color: #AAAAAA;
-            /* ラベルテキストの色を指定する */
-            font-size: 13px;
-            /* ラベルテキストのサイズを指定する */
-            background-color: #006DD9;
-            /* ラベルの背景色を指定する */
-            padding: 6px;
-            /* ラベルとテキスト間の余白を指定する */
-            border-radius: 10px;
-            /* ラベルボックスの角丸を指定する */
-            cursor: pointer;
-            /* マウスカーソルの形を指定する */
-        }
-
-        label>input {
-            display: none;
-            /* アップロードボタンのスタイルを無効にする */
-        }
-
-
-
         #footer_2_content {
             display: flex;
             justify-content: center;
-            height: 100px;
-            margin-top: 20px;
+            align-items: center;
+            height: 100 px;
         }
 
         #content_form {
@@ -353,7 +398,7 @@
             background-image: linear-gradient(90deg, #ff3cac, #562b7c, #2b86c5);
         } */
 
-        button span {
+        /* button span {
             position: relative;
             z-index: 1;
         }
@@ -364,24 +409,43 @@
 
         button:hover:after {
             opacity: 0;
+        } */
+
+        #user_name {
+            background-color: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 255, 201, 1) 48%, rgba(64, 121, 9, 1) 100%);
+            margin-bottom: 10px;
+            height: 24px;
+            border-radius: 10px;
+        }
+
+        #sound_name {
+            border-radius: 10px;
+            height: 24px;
+            background-color: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 255, 201, 1) 48%, rgba(64, 121, 9, 1) 100%);
         }
 
         #save {
-            width: 80px;
+            width: 140px;
             height: 80px;
             font-size: x-large;
-            border-radius: 50%;
+            border-radius: 50px;
+        }
+
+        #save img {
+            height: 50px;
+            margin-right: 10px;
+            margin-top: 3px;
         }
 
         #play {
-            border-radius: 50%;
+            border-radius: 50px;
             position: fixed;
             bottom: 10px;
             right: 10px;
-            width: 140px;
-            height: 140px;
+            width: 300px;
+            height: 80px;
             font-size: x-large;
-            margin-right: 100px;
+            margin-right: 5px;
         }
 
         #play.available1 {
@@ -467,10 +531,18 @@
             align-items: center;
             height: 100px;
         }
-/* 
+
         .file_button {
-            font-size: small;
-            margin-bottom: 10px;
+            font-size: x-large;
+        }
+
+        .file_button img {
+            height: 55px;
+            margin-right: 7px;
+        }
+
+        /* .file_button p {
+            margin-top: 10px;
         } */
 
         .close_open_btn .close ::after {
@@ -484,15 +556,92 @@
         #recording_button_i {
             position: fixed;
             bottom: 10px;
-            border-radius: 50%;
-            width: 80px;
+            /* border-radius: 50%; */
+            /* width: 80px;
+            height: 80px; */
+            width: 140px;
             height: 80px;
             font-size: x-large;
+            border-radius: 50px;
             /*角丸*/
+        }
+
+        #recording_button_i img {
+            height: 45px;
+            margin-top: 5px;
         }
 
         .p5Canvas {
             box-shadow: 0 10px 25px 10px rgba(211, 201, 201, 0.5);
-            margin-top: 50px;
+            margin-top: 90px;
             margin-bottom: 100px;
+            margin-left: 200px;
+        }
+
+        /* ロード */
+
+        #splash {
+            /*fixedで全面に固定*/
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background: #333;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Loading画像中央配置　*/
+
+        #splash_logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Loading アイコンの大きさ設定　*/
+
+        #splash_logo img {
+            width: 260px;
+        }
+
+        /* fadeUpをするアイコンの動き */
+
+        .fadeUp {
+            animation-name: fadeUpAnime;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeUpAnime {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /*========= レイアウトのためのCSS ===============*/
+
+        #container {
+            width: 100%;
+            height: 100vh;
+            background: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        a {
+            color: #333;
+        }
+
+        a:hover {
+            text-decoration: none;
         }
