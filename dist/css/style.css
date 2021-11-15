@@ -190,7 +190,6 @@
 
         .sns_content {
             display: none;
-            overflow: hidden heig
         }
 
         .close_open_wrap {
@@ -222,7 +221,7 @@
             width: 300px;
             color: white;
             font-size: 10px;
-            overflow: scroll;
+            overflow-y: scroll;
 
         }
 
