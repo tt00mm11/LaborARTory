@@ -252,7 +252,7 @@ const sketch = (p) => {
         // pushで保存した座標を復元する
         p.pop();
 
-        rec = soundRecorder(p);
+        // rec = soundRecorder(p);
 
         p.noStroke();
         p.fill(0, 0, 100, 80)
@@ -328,39 +328,39 @@ function playModeSetting(p) {
 
 new p5(sketch);
 
-function soundRecorder(p) {
-    if (state % 3 === 1) {
-        p.fill('red');
-        p.noStroke();
-        p.circle(50, 50, 100);
-        p.fill('white');
-        p.textSize(16);
-        p.textAlign(p.CENTER, p.CENTER);
-        if (count <= 0) {
-            p.text('Recording!', 50, 50);
-        } else {
-            p.text(count, 50, 50);
-        }
-    }
-    else if (state % 3 === 2) {
-        p.fill('crimson');
-        p.noStroke();
-        p.circle(50, 50, 100);
-        p.fill('white');
-        p.textSize(16);
-        p.textAlign(p.CENTER, p.CENTER);
-        p.text('Done!', 50, 50);
-    }
-    else if (state % 3 === 0 && state !== 0) {
-        p.fill('aqua');
-        p.noStroke();
-        p.circle(50, 50, 100);
-        p.fill('white');
-        p.textSize(16);
-        p.textAlign(p.CENTER, p.CENTER);
-        p.text('Playing!', 50, 50);
-    }
-}
+// function soundRecorder(p) {
+//     if (state % 3 === 1) {
+//         p.fill('red');
+//         p.noStroke();
+//         p.circle(50, 50, 100);
+//         p.fill('white');
+//         p.textSize(16);
+//         p.textAlign(p.CENTER, p.CENTER);
+//         if (count <= 0) {
+//             p.text('Recording!', 50, 50);
+//         } else {
+//             p.text(count, 50, 50);
+//         }
+//     }
+//     else if (state % 3 === 2) {
+//         p.fill('crimson');
+//         p.noStroke();
+//         p.circle(50, 50, 100);
+//         p.fill('white');
+//         p.textSize(16);
+//         p.textAlign(p.CENTER, p.CENTER);
+//         p.text('Done!', 50, 50);
+//     }
+//     else if (state % 3 === 0 && state !== 0) {
+//         p.fill('aqua');
+//         p.noStroke();
+//         p.circle(50, 50, 100);
+//         p.fill('white');
+//         p.textSize(16);
+//         p.textAlign(p.CENTER, p.CENTER);
+//         p.text('Playing!', 50, 50);
+//     }
+// }
 
 function soundVisualizer5(p){
 // ブレンドモードと背景
