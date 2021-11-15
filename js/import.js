@@ -42,12 +42,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyARCEa1-l0Ac1dhlE1Aiy5DKTDqqS_rhz8",
-    authDomain: "laborartory-ed692.firebaseapp.com",
-    projectId: "laborartory-ed692",
-    storageBucket: "laborartory-ed692.appspot.com",
-    messagingSenderId: "350952690894",
-    appId: "1:350952690894:web:c118c96f783d89f252ec9f"
+    apiKey: "AIzaSyDpOJGgkagTmlsVSVPa2mOI9-8HjueYCA4",
+    authDomain: "laborartory-soundapp.firebaseapp.com",
+    projectId: "laborartory-soundapp",
+    storageBucket: "laborartory-soundapp.appspot.com",
+    messagingSenderId: "395445297995",
+    appId: "1:395445297995:web:8bef52a56e74386787bece"
 };
 
 // Initialize Firebase
