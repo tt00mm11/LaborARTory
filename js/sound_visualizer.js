@@ -209,7 +209,6 @@ const sketch = (p) => {
 
         // 音量を測定
         amplitude = new p5.Amplitude();
-
     };
 
     p.draw = () => {

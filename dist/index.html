@@ -38,27 +38,24 @@
     </div>
     <footer>
       <div class="footer_container" id="footer_container_i">
-        <div class="import" id="import_i">
-<div class="file_button">
-  ファイルを選択して下さい
-<input type="file" class="import_input" id="import_input_i">
-</div>
-            
-
-          <button
-            id="play_import_sound"><span>アップした音を再生</span></button>
-        </div>
         <div class="recording" id="recording_i"><button id="recording_button_i"><span>録音</span></button></div>
-        <div class="mixing" id="mixing_i"><button id="mixing_button_i"><span>mixing</span></button></div>
+        <div class="import" id="import_i">
+          <div class="file_button">
+            <p>ファイルを選択して下さい</p>
+            <input type="file" class="import_input" id="import_input_i">
+          </div>
+          <button id="play_import_sound"><span>アップした音を再生</span></button>
+        </div>
+        <!-- <div class="mixing" id="mixing_i"><button id="mixing_button_i"><span>mixing</span></button></div> -->
       </div>
     </footer>
     <!-- SNS箇所 -->
     <div class="main_2_sns" id="main_2_sns_i">
       <div class="close_open_wrap" id="close_open_wrap_i">
-      <div class="close_open" id="close_open_i">
-        <p>Log</p>
-        <img src="img/arrow.png" alt="">
-      </div>
+        <div class="close_open" id="close_open_i">
+          <p>Log</p>
+          <img src="img/arrow.png" alt="" id="close_open_btn_i">
+        </div>
       </div>
 
       <div class="sns_content" id="sns_content_i">
@@ -72,10 +69,17 @@
     </div>
   </main>
 
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="main.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-</body>
+  <script>
+    $(function () {
+      $('#close_open_btn_i').on('click', function () {
+        //alert('yey');
+        $('#close_open_btn_i').toggleClass("close");
+        $('#sns_content_i').slideToggle();
+      });
+    });
+  </script>
 
 </html>
