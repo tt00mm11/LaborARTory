@@ -86,7 +86,7 @@ const sketch = (p) => {
         if (state % 2 === 0 && mic.enabled) {
             // record to our p5.SoundFile
             count = 0;
-            $('#recording_button_i').text('録音中...');
+            $('#recording_button_i').text('Rec..');
             recorder.record(soundFile);
             state++;
         }
@@ -96,7 +96,7 @@ const sketch = (p) => {
             recorder.stop();
             soundBlob = soundFile.getBlob();
             loadSound = p.loadSound(soundBlob);
-            $('#recording_button_i').text('録音');
+            $('#recording_button_i').text('Rec');
             $('#play').removeClass();
             $('#play').addClass('available1');
             state++;
@@ -149,7 +149,7 @@ const sketch = (p) => {
     // })
 
     $('body').on('click', 'li', function () {
-        $('#play').text('ロード中');
+        $('#play').text('load');
         setTimeout(function () {
             soundBlob = soundUrl;
             console.log('loading...');
@@ -157,7 +157,7 @@ const sketch = (p) => {
         }, 2000)
         setTimeout(function () {
             console.log('loaded!');
-            $('#play').text('再生');
+            $('#play').text('play');
             $('#play').removeClass();
             $('#play').addClass('available2');
         }, 3000);
@@ -173,15 +173,15 @@ const sketch = (p) => {
             }
             loadSound.play();
             playCount++;
-            $('#play').text('停止');
+            $('#play').text('stop');
         } else {
             loadSound.stop();
             playCount = 0;
-            $('#play').text('再生');
+            $('#play').text('play');
         }
         loadSound.onended(function () {
             playCount = 0;
-            $('#play').text('再生');
+            $('#play').text('paly');
         });
     });
 
