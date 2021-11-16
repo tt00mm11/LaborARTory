@@ -105,14 +105,10 @@
     $(function () {
       //モーデル sato 211111
 
-      $(window).on('load', function () {
-        $('.js_modal').fadeIn(8000);
-        return false;
-      });
-      $('a').on('click', function () {
-        $('.js_modal').fadeOut(1000);
-        return false;
-      });
+      // $(window).on('load', function () {
+
+      //   return false;
+      // });
 
       function changeSound(p) {
         loadSound = p.loadSound($('#import_input_i').prop('files')[0]);
@@ -125,7 +121,24 @@
       $(window).on('load', function () {
         $("#splash").delay(2000).fadeOut('slow');//ローディング画面を1.5秒（1500ms）待機してからフェードアウト
         $("#splash_logo").delay(1800).fadeOut('slow');//ロゴを1.2秒（1200ms）待機してからフェードアウト
+        $('.js_modal').fadeIn(8000);
       });
+
+      $('a').on('click', function () {
+        $('.js_modal').fadeOut(1000);
+        return false;
+      });
+
+      //モーダルインフォ sato 211115
+      $('.open').on('click', function () {
+        $('.modal').fadeIn();
+        $('.overlay').fadeIn();
+      });
+      $('.close, .overlay').on('click', function () {
+        $('.modal').fadeOut();
+        $('.overlay').fadeOut();
+      });
+
       //////////////////////////////
 
 

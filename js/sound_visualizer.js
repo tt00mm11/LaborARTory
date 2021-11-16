@@ -251,12 +251,6 @@ const sketch = (p) => {
 
         // pushで保存した座標を復元する
         p.pop();
-
-        // rec = soundRecorder(p);
-
-        p.noStroke();
-        p.fill(0, 0, 100, 80)
-        p.ellipse(p.mouseX, p.mouseY, 25, 25);
     };
     p.keyPressed = () => {
         // プレイモードが1以上のとき
