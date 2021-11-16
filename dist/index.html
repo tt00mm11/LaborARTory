@@ -151,6 +151,16 @@
         $('.file_button').children('img').attr('src', 'img/sound_import3.png');
       });
 
+      //モーダルインフォ sato 211115
+      $('.open').on('click', function () {
+        $('.modal').fadeIn();
+        $('.overlay').fadeIn();
+      });
+      $('.close, .overlay').on('click', function () {
+        $('.modal').fadeOut();
+        $('.overlay').fadeOut();
+      });
+
 
     });
   </script>
