@@ -42,12 +42,6 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDpOJGgkagTmlsVSVPa2mOI9-8HjueYCA4",
-    authDomain: "laborartory-soundapp.firebaseapp.com",
-    projectId: "laborartory-soundapp",
-    storageBucket: "laborartory-soundapp.appspot.com",
-    messagingSenderId: "395445297995",
-    appId: "1:395445297995:web:8bef52a56e74386787bece"
 };
 
 // Initialize Firebase

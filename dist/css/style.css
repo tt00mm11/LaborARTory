@@ -704,6 +704,9 @@
             .sns_content {
                 display: block;
             }
+            #history {
+                margin-top: 0;
+            }
             .p5Canvas {
                 margin-left: 8px;
             }
