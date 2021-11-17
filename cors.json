@@ -1,6 +1,6 @@
 [{
-    "origin": ["http://localhost:8080", "http://localhost:8081", "http://localhost:8082"],
+    "origin": ["https://laborartory-soundapp.web.app/", "https://laborartory-soundapp.firebaseapp.com/", "http://localhost:8080", "http://localhost:8081", "http://localhost:8082"],
     "responseHeader": ["*"],
     "method": ["GET"],
-    "maxAgeSeconds": 86400
+    "maxAgeSeconds": 3600
 }]

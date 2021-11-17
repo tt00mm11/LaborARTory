@@ -31,7 +31,6 @@ import {
 } from './sound_visualizer.js'
 
 let soundUrl, number, color;
-
 $('#save').on('click', function () {
     const userName = $('#user_name').val();
     const soundName = $('#sound_name').val();
@@ -96,6 +95,8 @@ $('body').on('click', 'li', async function () {
         return url;
     });
 });
+
+
 
 export {
     soundUrl,

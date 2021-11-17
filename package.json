@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/tt00mm11/LaborARTory#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "firebase": "^9.4.1",
+    "firebase-functions": "^3.16.0",
     "jquery": "^3.6.0",
     "p5": "^0.9.0"
   },
@@ -35,8 +37,8 @@
     "example",
     "heroku"
   ],
-  "engines":{
-    "node":"16.13.0"
+  "engines": {
+    "node": "16.13.0"
   },
   "description": ""
 }

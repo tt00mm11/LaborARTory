@@ -194,7 +194,7 @@ const sketch = (p) => {
 
 
         // 画面サイズの縦横を比較し、小さい値をキャンバスサイズに設定
-        winSize = p.min(550, 550);
+        winSize = p.min(p.windowWidth/1.5, p.windowHeight/1.5);
         let canvas = p.createCanvas(winSize, winSize);
 
         canvas.parent(parent);
@@ -252,6 +252,53 @@ const sketch = (p) => {
         // pushで保存した座標を復元する
         p.pop();
     };
+
+    function setSwipe(content_visualize_i) {
+        var t = document.getElementById(content_visualize_i);
+        var s_X;
+        var e_X;
+        var s_Y;
+        var e_Y;
+        var dist = 30;
+        t.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            s_X = e.touches[0].pageX;
+            s_Y = e.touches[0].pageY;
+        });
+        t.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            e_X = e.changedTouches[0].pageX;
+            e_Y = e.changedTouches[0].pageY;
+        });
+        t.addEventListener('touchend', function(e) {
+            if (s_X > e_X + dist) {
+                if (playMode < playModeNum) {
+                    playMode++;
+
+                    // プレイモードが最後尾の場合は先頭へ
+                } else if (playMode == playModeNum) {
+                    playMode = 1;
+                }
+            } else if (s_X + dist < e_X) {
+                // playModeが1より大きい場合は1つ戻る
+                if (playMode > 1) {
+                    playMode--;
+
+                    //playModeが1の場合は、最後尾へ
+                } else if (playMode == 1) {
+                    playMode = playModeNum;
+                }
+            }
+            if (s_Y > e_Y + dist) {
+                // playModeが1より大きい場合は1つ戻る
+                hue1 = p.int(p.random(1, 360));
+            } else if (s_Y + dist < e_Y) {
+                hue1 = p.int(p.random(1, 360));
+            }
+        });
+    }
+    setSwipe('content_visualize_i');
+
     p.keyPressed = () => {
         // プレイモードが1以上のとき
         if (playMode >= 1) {
@@ -290,6 +337,10 @@ const sketch = (p) => {
                 hue1 = p.int(p.random(1, 360));
             }
         }
+    }
+
+    p.windowResized = () => {
+        p.resizeCanvas(winSize, winSize);
     }
 }
 
